@@ -1,16 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.roulettedemo.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
-
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.roulettedemo.HelloController">
+   <children>
+      <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="205.0" prefWidth="253.0">
+         <children>
+            <Button layoutX="178.0" layoutY="167.0" mnemonicParsing="false" onAction="#puntoSuDiTe1" text="Punta" />
+            <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="217.0" text="Giocatore 1" />
+            <ChoiceBox fx:id="p1" layoutX="52.0" layoutY="58.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="d1" layoutX="53.0" layoutY="120.0" prefWidth="150.0" />
+            <Label layoutX="52.0" layoutY="40.0" prefHeight="18.0" prefWidth="150.0" text="Scegli puntata" />
+            <Label layoutX="52.0" layoutY="103.0" prefHeight="18.0" prefWidth="150.0" text="Scegli denaro" />
+         </children>
+      </AnchorPane>
+       <AnchorPane layoutX="441.0" layoutY="301.0" prefHeight="205.0" prefWidth="253.0">
+           <children>
+               <Button layoutX="178.0" layoutY="167.0" mnemonicParsing="false" onAction="#puntoSuDiTe4" text="Punta" />
+               <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="217.0" text="Giocatore 4" />
+               <ChoiceBox fx:id="p4" layoutX="52.0" layoutY="58.0" prefWidth="150.0" />
+               <ChoiceBox fx:id="d4" layoutX="53.0" layoutY="120.0" prefWidth="150.0" />
+               <Label layoutX="52.0" layoutY="40.0" prefHeight="18.0" prefWidth="150.0" text="Scegli puntata" />
+               <Label layoutX="52.0" layoutY="103.0" prefHeight="18.0" prefWidth="150.0" text="Scegli denaro" />
+           </children>
+       </AnchorPane>
+       <AnchorPane layoutX="441.0" layoutY="14.0" prefHeight="205.0" prefWidth="253.0">
+           <children>
+               <Button layoutX="178.0" layoutY="167.0" mnemonicParsing="false" onAction="#puntoSuDiTe2" text="Punta" />
+               <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="217.0" text="Giocatore 2" />
+               <ChoiceBox fx:id="p2" layoutX="52.0" layoutY="58.0" prefWidth="150.0" />
+               <ChoiceBox fx:id="d2" layoutX="53.0" layoutY="120.0" prefWidth="150.0" />
+               <Label layoutX="52.0" layoutY="40.0" prefHeight="18.0" prefWidth="150.0" text="Scegli puntata" />
+               <Label layoutX="52.0" layoutY="103.0" prefHeight="18.0" prefWidth="150.0" text="Scegli denaro" />
+           </children>
+       </AnchorPane>
+       <AnchorPane layoutX="14.0" layoutY="301.0" prefHeight="205.0" prefWidth="253.0">
+           <children>
+               <Button layoutX="178.0" layoutY="167.0" mnemonicParsing="false" onAction="#puntoSuDiTe3" text="Punta" />
+               <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="217.0" text="Giocatore 3" />
+               <ChoiceBox fx:id="p3" layoutX="52.0" layoutY="58.0" prefWidth="150.0" />
+               <ChoiceBox fx:id="d3" layoutX="53.0" layoutY="120.0" prefWidth="150.0" />
+               <Label layoutX="52.0" layoutY="40.0" prefHeight="18.0" prefWidth="150.0" text="Scegli puntata" />
+               <Label layoutX="52.0" layoutY="103.0" prefHeight="18.0" prefWidth="150.0" text="Scegli denaro" />
+           </children>
+       </AnchorPane>
+      <Label layoutX="297.0" layoutY="169.0" prefHeight="18.0" prefWidth="133.0" text="Roulette" />
+      <Label fx:id="number" layoutX="315.0" layoutY="206.0" prefHeight="26.0" prefWidth="40.0" text="0" textAlignment="CENTER" />
+   </children>
+</AnchorPane>

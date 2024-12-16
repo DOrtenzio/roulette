@@ -6,8 +6,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Roulette extends Thread{
     private ArrayList<Puntata> puntate=new ArrayList<Puntata>();
+    private ArrayList<Giocatore> giocatori=new ArrayList<Giocatore>();
     private int numGioc;
     private Semaphore prontiAlGioco;
+    private HelloController helloController;
 
     //RELATIVO ALLA ROULETTE
     private double cassa;
@@ -17,10 +19,14 @@ public class Roulette extends Thread{
     private final int[] rossi = {1, 3, 5, 7, 912, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36};
 
     //Costruttore e inizializzazione sequenze colori
-    public Roulette(int cassa, int numGioc, Semaphore prontiAlGioco) {
+    public Roulette(int cassa, int numGioc, Semaphore prontiAlGioco, HelloController helloController, ArrayList<Giocatore> giocatori) {
         this.cassa = cassa;
         this.numGioc=numGioc;
         this.prontiAlGioco=prontiAlGioco;
+        this.giocatori=giocatori;
+        this.helloController=helloController;
+        initializeArrays();
+        helloController.setGiocatori(giocatori);
     }
 
     private void initializeArrays() {
@@ -151,7 +157,11 @@ public class Roulette extends Thread{
                     giocatorePuntata.setCassaPersonale( giocatorePuntata.getCassaPersonale() + restiuisciORicavaDenaro(puntata, estratto) );
                 }
 
+                helloController.cambioNum(estratto);
+
                 puntate.clear();
+
+                helloController.reableAll();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

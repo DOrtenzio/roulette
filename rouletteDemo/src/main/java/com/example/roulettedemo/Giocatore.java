@@ -10,15 +10,25 @@ public class Giocatore extends Thread{
     private Roulette roulette;
     private Semaphore prontiAlGioco;
 
+    private Semaphore attesaPulsante=new Semaphore(0); // Aggiunto per sincronizzare con il pulsante dell'interfaccia grafica
+    private Puntata puntataCorrente;
+
     public Giocatore(String identificativo, double cassa, Roulette roulette, Semaphore prontiAlGioco) {
         this.identificativo = identificativo;
         this.cassaPersonale = cassa;
         this.roulette=roulette;
         this.prontiAlGioco=prontiAlGioco;
+        this.puntataCorrente=null;
     }
 
     public Puntata creaPuntata(String s, double denaro){
         return new Puntata(denaro,s,this);
+    }
+
+    // Metodo per sbloccare l'attesa (da chiamare quando il pulsante d'inserimento viene premuto)
+    public void premiPulsante(double denaro,String oggetto) {
+        this.puntataCorrente=new Puntata(denaro,oggetto,this);
+        attesaPulsante.release(); // Sblocca l'attesa del thread
     }
 
     //GET E SET
@@ -31,11 +41,12 @@ public class Giocatore extends Thread{
     public void run() {
         while (this.cassaPersonale > 0) {
             try {
-                prontiAlGioco.acquire();
+                prontiAlGioco.acquire(); //Blocco in caso roulette stia girando
 
                 // Crea e registra la puntata
-                Puntata nuovaPuntata = creaPuntata("r1", 20.0);
-                roulette.addPuntata(nuovaPuntata);
+                roulette.addPuntata(this.puntataCorrente);
+
+                attesaPulsante.acquire(); // Blocco finché il pulsante non sblocca ovvero passa i valori
 
                 TimeUnit.SECONDS.sleep(5);
 
