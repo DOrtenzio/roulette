@@ -7,50 +7,54 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
 public class HelloApplication extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 728, 568);
 
-        // Ottieni il controller dall'FXMLLoader
-        HelloController helloController = fxmlLoader.getController();
+        HelloController helloController = fxmlLoader.getController(); //In JavaFX, i controller gestiti tramite file FXML vengono automaticamente creati e inizializzati da FXMLLoader
 
-        // Configura il controller con i giocatori e altre dipendenze
-        ArrayList<Giocatore> giocatori = new ArrayList<>();
+        // Configura attributi della Roulette e dei giocatori
         Semaphore semaphore = new Semaphore(4);
-
-        Roulette roulette = new Roulette(5000, semaphore.availablePermits(), semaphore, helloController, giocatori);
-
-        Giocatore g1 = new Giocatore("a", 340.00, roulette, semaphore);
-        Giocatore g2 = new Giocatore("b", 340.00, roulette, semaphore);
-        Giocatore g3 = new Giocatore("c", 340.00, roulette, semaphore);
-        Giocatore g4 = new Giocatore("d", 340.00, roulette, semaphore);
-
-        giocatori.add(g1);
-        giocatori.add(g2);
-        giocatori.add(g3);
-        giocatori.add(g4);
-
+        ArrayList<Giocatore> giocatori = creaGiocatori(semaphore);
         helloController.setGiocatori(giocatori);
+        Roulette roulette = new Roulette(5000, semaphore.availablePermits(), semaphore, helloController);
+        //Struttura Costruttore: cassa, numero giocatori, semaforo condiviso per la gestione della rotazione, controller per modifiche grafiche, array di giocatori
 
-        // Avvia i thread
-        roulette.start();
-        g1.start();
-        g2.start();
-        g3.start();
-        g4.start();
+        helloController.setGiocatori(giocatori);  // Configura il controller, necessario per inizializzazioni varie
 
-        // Mostra la finestra
-        stage.setTitle("Hello!");
+        avviaThreads(roulette, giocatori);
+
+        stage.setTitle("Roulette Demo");
         stage.setScene(scene);
         stage.show();
+    }
+
+    private ArrayList<Giocatore> creaGiocatori(Semaphore semaphore) {
+        ArrayList<Giocatore> giocatori = new ArrayList<>();
+        String[] nomi = {"a", "b", "c", "d"};
+        double saldoIniziale = 340.00;
+
+        for (String nome : nomi) {
+            giocatori.add(new Giocatore(nome, saldoIniziale, null, semaphore));
+        }
+        return giocatori;
+    }
+
+    private void avviaThreads(Roulette roulette, List<Giocatore> giocatori) {
+        roulette.start();
+        for (Giocatore giocatore : giocatori) {
+            giocatore.setRouletteAttuale(roulette); // Imposta la Roulette per ogni giocatore
+            giocatore.start();
+        }
     }
 
     public static void main(String[] args) {
         launch();
     }
-
 }

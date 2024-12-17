@@ -6,190 +6,196 @@ import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class Roulette extends Thread{
-    private ArrayList<Puntata> puntate=new ArrayList<Puntata>();
-    private ArrayList<Giocatore> giocatori=new ArrayList<Giocatore>();
-    private int numGioc;
-    private Semaphore prontiAlGioco;
-    private HelloController helloController;
-
-    //RELATIVO ALLA ROULETTE
+public class Roulette extends Thread {
+    private final ArrayList<Puntata> puntate = new ArrayList<>();
+    private final int numGioc;
+    private final Semaphore prontiAlGioco;
+    private final HelloController helloController;
     private double cassa;
-    private ArrayList<Integer> riga1 = new ArrayList<Integer>();
-    private ArrayList<Integer> riga2 = new ArrayList<Integer>();
-    private ArrayList<Integer> riga3 = new ArrayList<Integer>();
-    private final int[] rossi = {1, 3, 5, 7, 912, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36};
 
-    //Costruttore e inizializzazione sequenze colori
-    public Roulette(int cassa, int numGioc, Semaphore prontiAlGioco, HelloController helloController, ArrayList<Giocatore> giocatori) {
+    private final ArrayList<Integer> riga1 = new ArrayList<>();
+    private final ArrayList<Integer> riga2 = new ArrayList<>();
+    private final ArrayList<Integer> riga3 = new ArrayList<>();
+    private static final int[] ROSSI = {1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36};
+
+    public Roulette(double cassa, int numGioc, Semaphore prontiAlGioco, HelloController helloController) {
         this.cassa = cassa;
-        this.numGioc=numGioc;
-        this.prontiAlGioco=prontiAlGioco;
-        this.giocatori=giocatori;
-        this.helloController=helloController;
+        this.numGioc = numGioc;
+        this.prontiAlGioco = prontiAlGioco;
+        this.helloController = helloController;
         initializeArrays();
-        helloController.setGiocatori(giocatori);
     }
 
-    private void initializeArrays() {
-        for (int i = 1; i <= 34; i += 3) {
-            riga1.add(i);
-        }
-        for (int i = 2; i <= 35; i += 3) {
-            riga2.add(i);
-        }
-        for (int i = 3; i <= 36; i += 3) {
-            riga3.add(i);
-        }
+    /*METODI ESTRAZIONE E GESTIONE ROULETTE*/
+    private void initializeArrays() { //Inizializzo array con rossi ecc.
+        for (int i = 1; i <= 34; i += 3) riga1.add(i);
+        for (int i = 2; i <= 35; i += 3) riga2.add(i);
+        for (int i = 3; i <= 36; i += 3) riga3.add(i);
+        //Metodo che può risultare utili nel caso ci si sposti dalla roulette europea ad altre
     }
 
-    //GESTIONE PUNTATE
-    public void addPuntata(Puntata puntata){
+    private String getColoreEstratto(int numero) {
+        if (numero == 0) return "Verde";
+        for (int rosso : ROSSI) {
+            if (rosso == numero) return "Rosso";
+        }
+        return "Nero";
+    }
+
+    private String getRiga(int numero) {
+        if (riga1.contains(numero)) return "r1";
+        if (riga2.contains(numero)) return "r2";
+        if (riga3.contains(numero)) return "r3";
+        return "ro"; // Default per 0
+    }
+
+    private String getQuadrante(int numero) {
+        if (numero == 0) return "q0";
+        if (numero <= 12) return "q1";
+        if (numero <= 24) return "q2";
+        return "q3";
+    }
+
+    private String getMeta(int numero) {
+        if (numero >= 1 && numero <= 18) return "m1";
+        if (numero >= 19 && numero <= 36) return "m2";
+        return "m0";
+    }
+
+    private String getSimmetria(int numero) {
+        return (numero % 2 == 0) ? "p" : "d";
+    }
+
+    private double restiuisciORicavaDenaro(Puntata puntata, int estratto) {
+        double percentualeDecrementoOIncremento, denaroPerGiocatore;
+        if (puntata.equals(Integer.toString(estratto))) {
+            percentualeDecrementoOIncremento = -1;
+            denaroPerGiocatore = puntata.getDenaro() * 2;
+        } else if (puntata.equals(getRiga(estratto))) {
+            percentualeDecrementoOIncremento = -0.1;
+            denaroPerGiocatore = puntata.getDenaro() * 1.5;
+        } else if (puntata.equals(getColoreEstratto(estratto))) {
+            percentualeDecrementoOIncremento = -0.1;
+            denaroPerGiocatore = puntata.getDenaro() * 1.1;
+        } else if (puntata.equals(getQuadrante(estratto)) && getQuadrante(estratto).equals("q0")) {
+            percentualeDecrementoOIncremento = -0.5;
+            denaroPerGiocatore = puntata.getDenaro() * 1.5;
+        } else if (puntata.equals(getQuadrante(estratto))) {
+            percentualeDecrementoOIncremento = -0.2;
+            denaroPerGiocatore = puntata.getDenaro() * 1.2;
+        } else if (puntata.equals(getMeta(estratto)) && getMeta(estratto).equals("m0")) {
+            percentualeDecrementoOIncremento = -0.2;
+            denaroPerGiocatore = puntata.getDenaro() * 1.2;
+        } else if (puntata.equals(getMeta(estratto))) {
+            percentualeDecrementoOIncremento = -0.5;
+            denaroPerGiocatore = puntata.getDenaro() * 1.5;
+        } else if (puntata.equals(getSimmetria(estratto))) {
+            percentualeDecrementoOIncremento = -0.1;
+            denaroPerGiocatore = puntata.getDenaro() * 1.1;
+        } else {
+            percentualeDecrementoOIncremento = 1;
+            denaroPerGiocatore = puntata.getDenaro() * 0;
+        }
+
+        this.cassa += puntata.getDenaro() * percentualeDecrementoOIncremento;
+        return denaroPerGiocatore;
+    }
+
+    private int estraiNumero() {
+        return ((int) (Math.random() * 37));
+    }
+
+    /*METODI X ESTERNI*/
+    public void addPuntata(Puntata puntata) {
         puntate.add(puntata);
     }
 
 
+    /*METODI PER INTERFACCIA GRAFICA*/
+    private void aggiornaFaseIniziale() {
+        synchronized (helloController) {
+            Platform.runLater(() -> {
+                helloController.fasePreScommessa();
+            });
+        }
+    }
 
-    //METODI PRIVATI CALCOLO COMBINAZIONI E GESTIONE CASSE
-    private int estraiNumero() { return ((int) (Math.random() * 37)); }
+    /*
 
-    private String getColoreEstratto(int numEstratto) {
-        if (numEstratto == 0)
-            return "Verde";
-        else {
-            for (int j : rossi) {
-                if (j == numEstratto)
-                    return "Rosso";
+    Platform.runLater(); --> È un metodo di JavaFX che permette di eseguire un'operazione sul thread principale dell'interfaccia grafica (UI thread).
+                             È necessario perché solo questo thread può aggiornare o interagire con l'interfaccia utente.
+
+    () -> { ... }; --> È una lambda expression, una sintassi breve per definire un'implementazione di un'interfaccia funzionale (qui un oggetto Runnable).
+                       Sostituibile con helloController::fasePreScomessa
+
+    */
+
+    private void aggiornaNumeroEstratto(int numeroEstratto) {
+        synchronized (helloController) {
+            Platform.runLater(() -> helloController.cambioNum(numeroEstratto));
+        }
+    }
+
+    private void riabilitaGUIGiocatori() {
+        synchronized (helloController) {
+            Platform.runLater(() -> {
+                helloController.reableAll();
+            });
+        }
+    }
+
+    /*METODI DI SINCRONIZZAZIONE*/
+
+    private void attendiGiocatori(){
+        for (int i = 0; i < this.numGioc; i++) {
+            try {
+                prontiAlGioco.acquire();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
-            return "Nero";
         }
     }
 
-    private String getRiga(int numEstratto) {
-        if (numEstratto == 0)
-            return "ro";
-        else if (riga1.contains(numEstratto)) {
-            return "r1";
-        } else if (riga2.contains(numEstratto)) {
-            return "r2";
-        } else {
-            return "r3";
+    private void abilitaAlGioco() {
+        for (int i = 0; i < this.numGioc; i++) {
+            prontiAlGioco.release();
         }
     }
 
-    private String getQuadrante(int numEstratto) {
-        if (numEstratto == 0)
-            return "q0";
-        else if (numEstratto <= 12) {
-            return "q1";
-        } else if (numEstratto <= 24) {
-            return "q2";
-        } else {
-            return "q3";
+    private void risvegliaGiocatori(){
+        synchronized (this) {
+            this.notifyAll();
         }
     }
 
-    private String getMeta(int numEstratto) {
-        if (numEstratto >= 1 && numEstratto <= 18) {
-            return "m1";
-        } else if (numEstratto >= 19 && numEstratto <= 36) {
-            return "m2";
-        } else {
-            return "m0";
-        }
-    }
 
-    private String getSimmetria(int numEstratto) {
-        if (numEstratto % 2 == 0)
-            return "p";
-        else
-            return "d";
-    }
-
-    private double restiuisciORicavaDenaro(Puntata puntata, int estratto) {
-        double percentualeDecrementoOIncremento, denaroRestituire;
-        if (puntata.equals(Integer.toString(estratto))) {
-            percentualeDecrementoOIncremento=-1;
-            denaroRestituire=puntata.getDenaro() * 2;
-        } else if (puntata.equals(getRiga(estratto))) {
-            percentualeDecrementoOIncremento=-0.1;
-            denaroRestituire=puntata.getDenaro() * 1.5;
-        }else if (puntata.equals(getColoreEstratto(estratto))) {
-            percentualeDecrementoOIncremento=-0.1;
-            denaroRestituire=puntata.getDenaro() * 1.1;
-        } else if (puntata.equals(getQuadrante(estratto)) && getQuadrante(estratto).equals("q0")) {
-            percentualeDecrementoOIncremento=-0.5;
-            denaroRestituire=puntata.getDenaro() * 1.5;
-        } else if (puntata.equals(puntata.equals(getQuadrante(estratto)))) {
-            percentualeDecrementoOIncremento=-0.2;
-            denaroRestituire=puntata.getDenaro() * 1.2;
-        } else if (puntata.equals(getMeta(estratto)) && getMeta(estratto).equals("m0")) {
-            percentualeDecrementoOIncremento=-0.2;
-            denaroRestituire=puntata.getDenaro() * 1.2;
-        } else if (puntata.equals(getMeta(estratto))) {
-            percentualeDecrementoOIncremento=-0.5;
-            denaroRestituire=puntata.getDenaro() * 1.5;
-        } else if (puntata.equals(getSimmetria(estratto))){
-            percentualeDecrementoOIncremento=-0.1;
-            denaroRestituire=puntata.getDenaro() * 1.1;
-        }else{
-            percentualeDecrementoOIncremento=1;
-            denaroRestituire=puntata.getDenaro() * 0;
-        }
-        this.cassa+=puntata.getDenaro()*percentualeDecrementoOIncremento;
-        return denaroRestituire;
-    }
-
-    //Run
     @Override
     public void run() {
-        while (this.cassa>0) {
+        while (this.cassa > 0) {
             try {
-                synchronized (helloController) {
-                    // Aggiornamento GUI in modo sicuro
-                    Platform.runLater(() -> {
-                        helloController.faseIniziale();
-                    });
-                }
+                //FASE INIZIALE ---> ATTESA
+                aggiornaFaseIniziale();
                 TimeUnit.SECONDS.sleep(5);
+                attendiGiocatori();
 
-                for (int i=0;i<this.numGioc;i++){
-                    System.out.println("Permessi disponibili: " + prontiAlGioco.availablePermits());
-                    this.prontiAlGioco.acquire();
-                    System.out.println("ACQUISITO "+i);
-                }
-
+                //SECONDA FASE ---> ESTRAZIONE
                 System.out.println("Tutti i giocatori hanno piazzato la loro puntata.");
-
-                int estratto = estraiNumero();
+                int numeroEstratto = estraiNumero();
                 for (Puntata puntata : puntate) {
-                    Giocatore giocatorePuntata = puntata.getGiocatorePuntante();
-                    giocatorePuntata.setCassaPersonale( giocatorePuntata.getCassaPersonale() + restiuisciORicavaDenaro(puntata, estratto) );
+                    Giocatore giocatore = puntata.getGiocatorePuntante();
+                    double vincita = restiuisciORicavaDenaro(puntata, numeroEstratto);
+                    giocatore.setCassaPersonale(giocatore.getCassaPersonale() + vincita);
                 }
-                synchronized (helloController) {
-                    // Aggiornamento GUI in modo sicuro
-                    Platform.runLater(() -> {
-                        helloController.cambioNum(estratto);
-                    });
-                }
+                aggiornaNumeroEstratto(numeroEstratto);
 
+                //FASE FINALE ---> RIABILITAZIONE GIOCATORI ED AGGIORNAMENTI GUI
                 puntate.clear();
+                riabilitaGUIGiocatori();
+                abilitaAlGioco();
+                risvegliaGiocatori();
 
-                synchronized (helloController) {
-                    // Aggiornamento GUI in modo sicuro
-                    Platform.runLater(() -> {
-                        helloController.reableAll();
-                    });
-                }
-
-                for (int i=0;i<this.numGioc;i++){
-                    this.prontiAlGioco.release();
-                }
-
-                synchronized (this){
-                    this.notifyAll();
-                }
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
         }

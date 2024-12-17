@@ -2,64 +2,56 @@ package com.example.roulettedemo;
 
 import java.util.concurrent.Semaphore;
 
-public class Giocatore extends Thread{
-    private String identificativo;
-    private double cassaPersonale;
-
-    private Roulette roulette;
-    private Semaphore prontiAlGioco;
-
-    private Semaphore attesaPulsante=new Semaphore(0); // Aggiunto per sincronizzare con il pulsante dell'interfaccia grafica
+public class Giocatore extends Thread {
+    private double cassaPersonale; //Cassa personale del giocatore
+    private Roulette rouletteAttuale;
     private Puntata puntataCorrente;
 
-    public Giocatore(String identificativo, double cassa, Roulette roulette, Semaphore prontiAlGioco) {
+    private final String identificativo;
+    private final Semaphore prontiAlGioco;
+    private final Semaphore attesaPulsante = new Semaphore(0);
+
+    public Giocatore(String identificativo, double cassa, Roulette rouletteAttuale, Semaphore prontiAlGioco) {
         this.identificativo = identificativo;
         this.cassaPersonale = cassa;
-        this.roulette=roulette;
-        this.prontiAlGioco=prontiAlGioco;
-        this.puntataCorrente=null;
+        this.rouletteAttuale = rouletteAttuale;
+        this.prontiAlGioco = prontiAlGioco;
     }
 
-    public Puntata creaPuntata(String s, double denaro){
-        return new Puntata(denaro,s,this);
-    }
-
-    // Metodo per sbloccare l'attesa (da chiamare quando il pulsante d'inserimento viene premuto)
-    public void premiPulsante(double denaro,String oggetto) {
-        this.puntataCorrente=new Puntata(denaro,oggetto,this);
-        attesaPulsante.release(); // Sblocca l'attesa del thread
-    }
-
-    //GET E SET
-    public String getIdentificativo() { return this.identificativo; }
-    public void setIdentificativo(String identificativo) { this.identificativo = identificativo; }
+    //Get e set
+    public String getIdentificativo() { return identificativo; }
     public double getCassaPersonale() { return cassaPersonale; }
     public void setCassaPersonale(double cassaPersonale) { this.cassaPersonale = cassaPersonale; }
+    public void setRouletteAttuale(Roulette rouletteAttuale){ this.rouletteAttuale = rouletteAttuale; }
+
+    public void premiPulsante(double denaro, String oggetto) { //Metodo utilizzato per comunicare con la GUI
+        this.puntataCorrente = new Puntata(denaro, oggetto, this);
+        attesaPulsante.release();
+    }
+
+    @Override
+    public String toString(){ return "Giocatore: Id = "+this.identificativo+" Quantitativo Cassa: "+this.cassaPersonale+" €,\t"; }
 
     @Override
     public void run() {
-        while (this.cassaPersonale > 0) {
+        while (cassaPersonale > 0) {
             try {
-                prontiAlGioco.acquire(); //Blocco in caso roulette stia girando
+                prontiAlGioco.acquire(); //Vedo se la roulette è pronta alle puntate
+                attesaPulsante.acquire(); //Attendo la puntata dalla GUI
 
-                attesaPulsante.acquire(); // Blocco finché il pulsante non sblocca ovvero passa i valori
-                // Crea e registra la puntata
-                roulette.addPuntata(this.puntataCorrente);
-                System.out.println("INVIATA");
+                rouletteAttuale.addPuntata(puntataCorrente);
+                setCassaPersonale(getCassaPersonale()-puntataCorrente.getDenaro());
+                System.out.println("Puntata inviata: " + puntataCorrente.toString());
 
-                prontiAlGioco.release();
+                prontiAlGioco.release();//Dico alla roulette di essere pronto
 
-                System.out.println("Permessi disponibili: " + prontiAlGioco.availablePermits());
-
-                synchronized (roulette){
-                    roulette.wait();
+                synchronized (rouletteAttuale) { //Aspetto l'estrazione
+                    rouletteAttuale.wait();
                 }
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
+                System.err.println("Thread interrotto: " + e.getMessage());
             }
         }
     }
-
-
-
 }
