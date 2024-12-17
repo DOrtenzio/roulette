@@ -1,7 +1,6 @@
 package com.example.roulettedemo;
 
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
 
 public class Giocatore extends Thread{
     private String identificativo;
@@ -43,14 +42,18 @@ public class Giocatore extends Thread{
             try {
                 prontiAlGioco.acquire(); //Blocco in caso roulette stia girando
 
+                attesaPulsante.acquire(); // Blocco finché il pulsante non sblocca ovvero passa i valori
                 // Crea e registra la puntata
                 roulette.addPuntata(this.puntataCorrente);
-
-                attesaPulsante.acquire(); // Blocco finché il pulsante non sblocca ovvero passa i valori
-
-                TimeUnit.SECONDS.sleep(5);
+                System.out.println("INVIATA");
 
                 prontiAlGioco.release();
+
+                System.out.println("Permessi disponibili: " + prontiAlGioco.availablePermits());
+
+                synchronized (roulette){
+                    roulette.wait();
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

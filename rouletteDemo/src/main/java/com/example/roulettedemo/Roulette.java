@@ -1,5 +1,7 @@
 package com.example.roulettedemo;
 
+import javafx.application.Platform;
+
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
@@ -143,10 +145,18 @@ public class Roulette extends Thread{
     public void run() {
         while (this.cassa>0) {
             try {
+                synchronized (helloController) {
+                    // Aggiornamento GUI in modo sicuro
+                    Platform.runLater(() -> {
+                        helloController.faseIniziale();
+                    });
+                }
                 TimeUnit.SECONDS.sleep(5);
 
                 for (int i=0;i<this.numGioc;i++){
+                    System.out.println("Permessi disponibili: " + prontiAlGioco.availablePermits());
                     this.prontiAlGioco.acquire();
+                    System.out.println("ACQUISITO "+i);
                 }
 
                 System.out.println("Tutti i giocatori hanno piazzato la loro puntata.");
@@ -156,12 +166,29 @@ public class Roulette extends Thread{
                     Giocatore giocatorePuntata = puntata.getGiocatorePuntante();
                     giocatorePuntata.setCassaPersonale( giocatorePuntata.getCassaPersonale() + restiuisciORicavaDenaro(puntata, estratto) );
                 }
-
-                helloController.cambioNum(estratto);
+                synchronized (helloController) {
+                    // Aggiornamento GUI in modo sicuro
+                    Platform.runLater(() -> {
+                        helloController.cambioNum(estratto);
+                    });
+                }
 
                 puntate.clear();
 
-                helloController.reableAll();
+                synchronized (helloController) {
+                    // Aggiornamento GUI in modo sicuro
+                    Platform.runLater(() -> {
+                        helloController.reableAll();
+                    });
+                }
+
+                for (int i=0;i<this.numGioc;i++){
+                    this.prontiAlGioco.release();
+                }
+
+                synchronized (this){
+                    this.notifyAll();
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
