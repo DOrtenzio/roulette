@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.roulettedemo.HelloController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.roulettedemo.HelloController">
    <children>
       <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="205.0" prefWidth="253.0">
          <children>
@@ -15,7 +18,7 @@
             <Label layoutX="52.0" layoutY="103.0" prefHeight="18.0" prefWidth="150.0" text="Scegli denaro" />
          </children>
       </AnchorPane>
-       <AnchorPane layoutX="441.0" layoutY="301.0" prefHeight="205.0" prefWidth="253.0">
+       <AnchorPane layoutX="455.0" layoutY="321.0" prefHeight="205.0" prefWidth="253.0">
            <children>
                <Button layoutX="178.0" layoutY="167.0" mnemonicParsing="false" onAction="#puntoSuDiTe4" text="Punta" />
                <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="217.0" text="Giocatore 4" />
@@ -45,7 +48,18 @@
                <Label layoutX="52.0" layoutY="103.0" prefHeight="18.0" prefWidth="150.0" text="Scegli denaro" />
            </children>
        </AnchorPane>
-      <Label layoutX="297.0" layoutY="169.0" prefHeight="18.0" prefWidth="133.0" text="Roulette" />
-      <Label fx:id="number" layoutX="315.0" layoutY="206.0" prefHeight="26.0" prefWidth="40.0" text="0" textAlignment="CENTER" />
+      <StackPane fx:id="wheelContainer" layoutX="255.0" layoutY="209.0" prefHeight="150.0" prefWidth="200.0">
+         <children>
+             <Circle fx:id="wheel" fill="WHITE" radius="86.0" stroke="#612f00" strokeType="INSIDE" strokeWidth="16.0" />
+             <ImageView fitHeight="164.0" fitWidth="156.0" nodeOrientation="INHERIT" preserveRatio="true">
+                 <image>
+                     <Image url="@img/wheel.png" />
+                 </image>
+               <StackPane.margin>
+                  <Insets left="1.0" top="4.0" />
+               </StackPane.margin>
+             </ImageView>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>

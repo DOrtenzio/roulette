@@ -1,8 +1,16 @@
 package com.example.roulettedemo;
 
+import javafx.animation.PauseTransition;
+import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
@@ -10,7 +18,9 @@ public class HelloController {
     @FXML
     private ChoiceBox<String> p1, p2, p3, p4, d1, d2, d3, d4; //Pn = Puntata  Dn = Denaro
     @FXML
-    private Label number; //Numero estratto
+    private AnchorPane root;
+    @FXML
+    private StackPane wheelContainer;
 
     private ArrayList<Giocatore> giocatori;
     private ChoiceBox<String>[] denaroChoice;
@@ -63,12 +73,6 @@ public class HelloController {
         p4.setDisable(false);
     }
 
-    @FXML
-    protected void cambioNum(int numero) {
-        System.out.println("Cambio numero...");
-        number.setText(String.valueOf(numero));
-    }
-
     //Metodi di modifica ed strutturazione delle choicebox
     @FXML
     private void inserisciOpzioniPuntata(ChoiceBox<String> choiceBox, int maxNumber) {
@@ -99,5 +103,47 @@ public class HelloController {
         inserisciOpzioniPuntata(p3, 36);
         inserisciOpzioniPuntata(p4, 36);
         inserisciOpzioniDenaro();
+    }
+
+    @FXML
+    public void rotate(){
+        // Animazione di rotazione applicata solo alla ruota
+        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(6), wheelContainer);
+        rotateTransition.setByAngle(720+(int)(Math.random()*360));
+        rotateTransition.setCycleCount(1);
+
+        rotateTransition.play();
+    }
+
+    @FXML
+    public void sovrastaWheel(int estratto){
+        // Creazione del quadrante
+        Rectangle quadrante = new Rectangle(170, 170);
+        quadrante.setArcWidth(16);
+        quadrante.setArcHeight(16);
+        quadrante.setFill(Color.web("#00FF00", 0.9)); // Colore di sfondo verde trasparente
+        quadrante.setLayoutX(270); // Posizione centrata rispetto alla ruota
+        quadrante.setLayoutY(209);
+
+        // Creazione del messaggio
+        Label messaggioConferma = new Label("Estratto: "+estratto);
+        messaggioConferma.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;");
+        messaggioConferma.setAlignment(Pos.CENTER);
+        messaggioConferma.setPrefWidth(170); // Larghezza uguale al quadrante
+        messaggioConferma.setPrefHeight(170); // Altezza uguale al quadrante
+        messaggioConferma.setLayoutX(270);
+        messaggioConferma.setLayoutY(209);
+
+
+        // Aggiunta del quadrante e del messaggio al contenitore
+        root.getChildren().addAll(quadrante, messaggioConferma);
+
+        // Timer per rimuovere gli elementi dopo 5 secondi
+        PauseTransition pausa = new PauseTransition(Duration.seconds(3));
+        pausa.setOnFinished(e -> {
+            root.getChildren().removeAll(quadrante, messaggioConferma);
+        });
+        pausa.play();
+
     }
 }

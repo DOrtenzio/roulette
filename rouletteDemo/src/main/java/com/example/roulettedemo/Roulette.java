@@ -132,15 +132,19 @@ public class Roulette extends Thread {
 
     private void aggiornaNumeroEstratto(int numeroEstratto) {
         synchronized (helloController) {
-            Platform.runLater(() -> helloController.cambioNum(numeroEstratto));
+            Platform.runLater(() -> helloController.rotate());
+            try {
+                TimeUnit.SECONDS.sleep(7);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            Platform.runLater(() -> helloController.sovrastaWheel(numeroEstratto));
         }
     }
 
     private void riabilitaGUIGiocatori() {
         synchronized (helloController) {
-            Platform.runLater(() -> {
-                helloController.reableAll();
-            });
+            Platform.runLater(() -> { helloController.reableAll(); });
         }
     }
 
