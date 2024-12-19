@@ -112,14 +112,6 @@ public class Roulette extends Thread {
 
 
     /*METODI PER INTERFACCIA GRAFICA*/
-    private void aggiornaFaseIniziale() {
-        synchronized (helloController) {
-            Platform.runLater(() -> {
-                helloController.fasePreScommessa();
-            });
-        }
-    }
-
     /*
 
     Platform.runLater(); --> È un metodo di JavaFX che permette di eseguire un'operazione sul thread principale dell'interfaccia grafica (UI thread).
@@ -139,12 +131,6 @@ public class Roulette extends Thread {
                 throw new RuntimeException(e);
             }
             Platform.runLater(() -> helloController.sovrastaWheel(numeroEstratto));
-        }
-    }
-
-    private void riabilitaGUIGiocatori() {
-        synchronized (helloController) {
-            Platform.runLater(() -> { helloController.reableAll(); });
         }
     }
 
@@ -178,7 +164,6 @@ public class Roulette extends Thread {
         while (this.cassa > 0) {
             try {
                 //FASE INIZIALE ---> ATTESA
-                aggiornaFaseIniziale();
                 TimeUnit.SECONDS.sleep(5);
                 attendiGiocatori();
 
@@ -194,7 +179,6 @@ public class Roulette extends Thread {
 
                 //FASE FINALE ---> RIABILITAZIONE GIOCATORI ED AGGIORNAMENTI GUI
                 puntate.clear();
-                riabilitaGUIGiocatori();
                 abilitaAlGioco();
                 risvegliaGiocatori();
 

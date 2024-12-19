@@ -23,6 +23,7 @@ public class Giocatore extends Thread {
     public double getCassaPersonale() { return cassaPersonale; }
     public void setCassaPersonale(double cassaPersonale) { this.cassaPersonale = cassaPersonale; }
     public void setRouletteAttuale(Roulette rouletteAttuale){ this.rouletteAttuale = rouletteAttuale; }
+    public Puntata getPuntataCorrente() { return puntataCorrente; }
 
     public void premiPulsante(double denaro, String oggetto) { //Metodo utilizzato per comunicare con la GUI
         this.puntataCorrente = new Puntata(denaro, oggetto, this);
@@ -48,6 +49,8 @@ public class Giocatore extends Thread {
                 synchronized (rouletteAttuale) { //Aspetto l'estrazione
                     rouletteAttuale.wait();
                 }
+
+                puntataCorrente=null;
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.err.println("Thread interrotto: " + e.getMessage());

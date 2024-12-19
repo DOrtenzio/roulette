@@ -14,7 +14,7 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view2.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 728, 568);
 
         HelloController helloController = fxmlLoader.getController(); //In JavaFX, i controller gestiti tramite file FXML vengono automaticamente creati e inizializzati da FXMLLoader
@@ -23,10 +23,9 @@ public class HelloApplication extends Application {
         Semaphore semaphore = new Semaphore(4);
         ArrayList<Giocatore> giocatori = creaGiocatori(semaphore);
         helloController.setGiocatori(giocatori);
+        helloController.initializeGiocatoriBox();
         Roulette roulette = new Roulette(5000, semaphore.availablePermits(), semaphore, helloController);
         //Struttura Costruttore: cassa, numero giocatori, semaforo condiviso per la gestione della rotazione, controller per modifiche grafiche, array di giocatori
-
-        helloController.setGiocatori(giocatori);  // Configura il controller, necessario per inizializzazioni varie
 
         avviaThreads(roulette, giocatori);
 

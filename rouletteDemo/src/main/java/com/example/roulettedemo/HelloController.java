@@ -4,6 +4,7 @@ import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -16,14 +17,13 @@ import java.util.ArrayList;
 
 public class HelloController {
     @FXML
-    private ChoiceBox<String> p1, p2, p3, p4, d1, d2, d3, d4; //Pn = Puntata  Dn = Denaro
+    private ChoiceBox<String> selectGiocatore;
     @FXML
-    private AnchorPane root;
+    private AnchorPane rootDinamica, root;
     @FXML
     private StackPane wheelContainer;
 
     private ArrayList<Giocatore> giocatori;
-    private ChoiceBox<String>[] denaroChoice;
 
     //Get e set
     public void setGiocatori(ArrayList<Giocatore> giocatori) {
@@ -32,45 +32,55 @@ public class HelloController {
 
     //Metodi puntata
     @FXML
-    protected void puntoSuDiTe(int index, ChoiceBox<String> puntataBox, ChoiceBox<String> denaroBox) {
-        Giocatore giocatore = giocatori.get(index);
+    private void puntoSuDiTe(Giocatore giocatore, ChoiceBox<String> puntataBox, ChoiceBox<String> denaroBox) {
         giocatore.premiPulsante(Double.parseDouble(denaroBox.getValue()), puntataBox.getValue());
-        denaroBox.setDisable(true);
-        puntataBox.setDisable(true);
     }
-
-    @FXML
-    protected void puntoSuDiTe1() {
-        puntoSuDiTe(0, p1, d1);
-    }
-
-    @FXML
-    protected void puntoSuDiTe2() {
-        puntoSuDiTe(1, p2, d2);
-    }
-
-    @FXML
-    protected void puntoSuDiTe3() {
-        puntoSuDiTe(2, p3, d3);
-    }
-
-    @FXML
-    protected void puntoSuDiTe4() {
-        puntoSuDiTe(3, p4, d4);
-    }
-
 
     //Metodi gestionali
     @FXML
-    public void reableAll() {
-        System.out.println("Reabilitazione...");
-        for (ChoiceBox<String> box : denaroChoice) {
-            box.setDisable(false);
+    public void caricaCampoGiocatore(Giocatore giocatore) {
+        rootDinamica.getChildren().clear();
+
+        ChoiceBox<String> p = new ChoiceBox<String>();
+        ChoiceBox<String> d = new ChoiceBox<String>();
+        Label l1 = new Label("TEMP: "+giocatore.getIdentificativo());
+        Label l2 = new Label("Inserire su cosa puntare:");
+        Label l3 = new Label("Inserire denaro: ");
+        Button b = new Button("Punta");
+        b.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea;");
+
+        rootDinamica.getChildren().addAll(l1, l2, p, l3, d, b);
+
+        l1.setLayoutX(14);
+        l1.setLayoutY(14);
+        l2.setLayoutX(52);
+        l2.setLayoutY(40);
+        p.setLayoutX(52);
+        p.setLayoutY(58);
+        l3.setLayoutX(52);
+        l3.setLayoutY(103);
+        d.setLayoutX(52);
+        d.setLayoutY(120);
+        b.setLayoutX(286);
+        b.setLayoutY(353);
+
+        System.out.println("Inserimento valori x giocatore: "+giocatore.getIdentificativo());
+        fasePreScommessa(p,d,giocatore);
+
+        p.setDisable(true);
+        d.setDisable(true);
+        b.setDisable(true);
+
+        if (giocatore.getPuntataCorrente() == null){
+            p.setDisable(false);
+            d.setDisable(false);
+            b.setDisable(false);
         }
-        p1.setDisable(false);
-        p2.setDisable(false);
-        p3.setDisable(false);
-        p4.setDisable(false);
+
+        b.setOnMouseClicked(e -> {
+            puntoSuDiTe(giocatore, p, d);
+            rootDinamica.getChildren().clear();
+        });
     }
 
     //Metodi di modifica ed strutturazione delle choicebox
@@ -84,39 +94,65 @@ public class HelloController {
     }
 
     @FXML
-    private void inserisciOpzioniDenaro() {
-        for (int i = 0; i < giocatori.size(); i++) {
-            ChoiceBox<String> choiceBox = denaroChoice[i];
-            choiceBox.getItems().clear();
-            for (int p = 10; p <= giocatori.get(i).getCassaPersonale(); p += 50) {
-                choiceBox.getItems().add(String.valueOf(p));
-            }
+    private void inserisciOpzioniDenaro(ChoiceBox<String> boxDenaro, Giocatore giocatore) {
+        boxDenaro.getItems().clear();
+        for (int p = 10; p <= giocatore.getCassaPersonale(); p += 50) {
+            boxDenaro.getItems().add(String.valueOf(p));
         }
     }
 
     @FXML
-    public void fasePreScommessa() {
-        System.out.println("Fase pre-scommesse");
-        denaroChoice = new ChoiceBox[]{d1, d2, d3, d4};
-        inserisciOpzioniPuntata(p1, 36);
-        inserisciOpzioniPuntata(p2, 36);
-        inserisciOpzioniPuntata(p3, 36);
-        inserisciOpzioniPuntata(p4, 36);
-        inserisciOpzioniDenaro();
+    private void fasePreScommessa(ChoiceBox<String> boxPuntata, ChoiceBox<String> boxDenaro, Giocatore giocatore) {
+        inserisciOpzioniPuntata(boxPuntata, 36);
+        inserisciOpzioniDenaro(boxDenaro, giocatore);
+    }
+
+
+
+    //Inizializzazioni
+
+    @FXML
+    public void initializeGiocatoriBox() {
+        System.out.println(">  Inseriti identificativi nel menù di scelta.");
+        selectGiocatore.getItems().clear();
+        for (int i = 0; i < giocatori.size(); i++) {
+            selectGiocatore.getItems().add(giocatori.get(i).getIdentificativo());
+        }
     }
 
     @FXML
-    public void rotate(){
+    public void initialize() {
+        // Aggiungi un listener alla lista degli elementi della ChoiceBox
+        selectGiocatore.getItems().addListener((javafx.collections.ListChangeListener.Change<? extends String> change) -> {
+            while (change.next()) {
+                if (!selectGiocatore.getItems().isEmpty()) {
+                    // Quando gli elementi sono disponibili, aggiungi il listener alla selezione
+                    selectGiocatore.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
+                        if (newValue != null) {
+                            int selectedIndex = selectGiocatore.getSelectionModel().getSelectedIndex();
+                            caricaCampoGiocatore(giocatori.get(selectedIndex));
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+
+
+    //RUOTA
+    @FXML
+    public void rotate() {
         // Animazione di rotazione applicata solo alla ruota
         RotateTransition rotateTransition = new RotateTransition(Duration.seconds(6), wheelContainer);
-        rotateTransition.setByAngle(720+(int)(Math.random()*360));
+        rotateTransition.setByAngle(720 + (int) (Math.random() * 360));
         rotateTransition.setCycleCount(1);
 
         rotateTransition.play();
     }
 
     @FXML
-    public void sovrastaWheel(int estratto){
+    public void sovrastaWheel(int estratto) {
         // Creazione del quadrante
         Rectangle quadrante = new Rectangle(170, 170);
         quadrante.setArcWidth(16);
@@ -126,7 +162,7 @@ public class HelloController {
         quadrante.setLayoutY(209);
 
         // Creazione del messaggio
-        Label messaggioConferma = new Label("Estratto: "+estratto);
+        Label messaggioConferma = new Label("Estratto: " + estratto);
         messaggioConferma.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;");
         messaggioConferma.setAlignment(Pos.CENTER);
         messaggioConferma.setPrefWidth(170); // Larghezza uguale al quadrante
