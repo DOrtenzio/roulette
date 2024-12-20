@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<!--
+  <color name="Platinum" hex="e7e7ea" r="231" g="231" b="234" />
+  <color name="French gray" hex="bfc2ca" r="191" g="194" b="202" />
+  <color name="Outer space" hex="485359" r="72" g="83" b="89" />
+  <color name="Gunmetal" hex="24292f" r="36" g="41" b="47" />
+  <color name="Eerie black" hex="17171b" r="23" g="23" b="27" />
+-->
+
+<AnchorPane fx:id="root" prefHeight="568.0" prefWidth="728.0" style="-fx-background-color: #e7e7ea;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.roulettedemo.HelloController">
+   <children>
+      <AnchorPane layoutX="4.0" layoutY="120.0" prefHeight="426.0" prefWidth="367.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 28; -fx-border-color: #24292f; -fx-border-radius: 28; -fx-border-width: 2;" />
+      <AnchorPane fx:id="rootDinamica" layoutX="271.0" layoutY="120.0" prefHeight="426.0" prefWidth="451.0" style="-fx-background-color: bfc2ca; -fx-background-radius: 28; -fx-border-color: #24292f; -fx-border-radius: 28; -fx-border-width: 2;">
+         <children>
+            <VBox layoutX="24.0" layoutY="54.0" prefHeight="297.0" prefWidth="411.0">
+               <children>
+                  <HBox prefHeight="244.0" prefWidth="412.0" style="-fx-background-color: #1e860e; -fx-background-radius: 16; -fx-border-color: #24292f; -fx-border-radius: 8; -fx-border-width: 1; ">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="188.0" prefWidth="23.0" style="-fx-background-color: #1e860e; -fx-background-radius: 8; " text="0" textFill="WHITE" />
+                        <VBox prefHeight="181.0" prefWidth="393.0">
+                           <children>
+                              <HBox prefHeight="65.0" prefWidth="364.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="3" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="6" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="9" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="12" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="15" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="18" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="21" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="24" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="27" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="30" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="33" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="36" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="56.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 2; -fx-border-color: #24292f; -fx-border-radius: 2; -fx-border-width: 1;" text="2 to 1">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="65.0" prefWidth="364.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="2" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="5" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="8" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="11" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="14" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="17" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="20" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="23" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="26" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="29" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="32" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="35" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="68.0" prefWidth="56.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 2; -fx-border-color: #24292f; -fx-border-radius: 2; -fx-border-width: 1;" text="2 to 1">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="65.0" prefWidth="200.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="1" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="4" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="7" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="10" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="13" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="16" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="19" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="22" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="25" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="30" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="31" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="34" textFill="WHITE">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" prefHeight="66.0" prefWidth="56.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 2; -fx-border-color: #24292f; -fx-border-radius: 2; -fx-border-width: 1;" text="2 to 1">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children></HBox>
+                  <HBox prefHeight="138.0" prefWidth="411.0">
+                     <Pane prefHeight="80.0" prefWidth="22.0" />
+                     <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="109.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 2; -fx-border-color: #24292f; -fx-border-radius: 2; -fx-border-width: 1;" text="1st 12" />
+                     <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="112.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 2; -fx-border-color: #24292f; -fx-border-radius: 2; -fx-border-width: 1;" text="2nd 12" />
+                     <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="112.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 2; -fx-border-color: #24292f; -fx-border-radius: 2; -fx-border-width: 1;" text="3rd 12" />
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Pane prefHeight="80.0" prefWidth="22.0" />
+                        <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="55.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 2; -fx-border-color: #24292f; -fx-border-radius: 2; -fx-border-width: 1;" text="1 to 18">
+                           <font>
+                              <Font size="11.0" />
+                           </font></Button>
+                        <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="55.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 2; -fx-border-color: #24292f; -fx-border-radius: 2; -fx-border-width: 1;" text="Even">
+                           <font>
+                              <Font size="11.0" />
+                           </font></Button>
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="55.0" style="-fx-background-color: #bc0000; -fx-background-radius: 2; -fx-border-color: #24292f; -fx-border-radius: 2; -fx-border-width: 1;" />
+                        <Button mnemonicParsing="false" prefHeight="102.0" prefWidth="54.5" style="-fx-background-color: #24292f; -fx-background-radius: 2; -fx-border-color: #24292f; -fx-border-radius: 2; -fx-border-width: 1;" />
+                        <Button mnemonicParsing="false" prefHeight="103.0" prefWidth="54.5" style="-fx-background-color: e7e7ea; -fx-background-radius: 2; -fx-border-color: #24292f; -fx-border-radius: 2; -fx-border-width: 1;" text="Odd">
+                           <font>
+                              <Font size="11.0" />
+                           </font></Button>
+                        <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="58.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 2; -fx-border-color: #24292f; -fx-border-radius: 2; -fx-border-width: 1;" text="19 to 36">
+                           <font>
+                              <Font size="11.0" />
+                           </font></Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children></AnchorPane>
+      <AnchorPane layoutY="-8.0" prefHeight="110.0" prefWidth="728.0" style="-fx-background-color: #24292f;">
+         <children>
+            <ChoiceBox fx:id="selectGiocatore" layoutX="561.0" layoutY="40.0" prefHeight="42.0" prefWidth="143.0" style="-fx-border-color: bfc2ca; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-text-fill: white; -fx-border-width: 2;" />
+            <ImageView fitHeight="69.0" fitWidth="152.0" layoutX="9.0" layoutY="25.0" nodeOrientation="INHERIT" preserveRatio="true">
+               <image>
+                  <Image url="@img/logos.jpg" />
+               </image>
+               <effect>
+                  <GaussianBlur radius="1.0" />
+               </effect>
+            </ImageView>
+            <Label layoutX="113.0" layoutY="26.0" prefHeight="70.0" prefWidth="390.0" text="888 Roulette" textFill="#e7e7ea">
+               <font>
+                  <Font name="Forte" size="53.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <StackPane fx:id="wheelContainer" layoutX="18.0" layoutY="169.0" prefHeight="316.0" prefWidth="244.0">
+         <children>
+            <Circle fx:id="wheel" fill="WHITE" radius="119.0" stroke="#24292f" strokeType="INSIDE" strokeWidth="16.0" />
+            <ImageView fitHeight="248.0" fitWidth="223.0" nodeOrientation="INHERIT" preserveRatio="true" translateX="-1.0" translateY="1.0">
+               <image>
+                  <Image url="@img/wheel.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets left="1.0" top="4.0" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
