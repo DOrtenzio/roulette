@@ -18,7 +18,8 @@
 
 <AnchorPane fx:id="root" prefHeight="568.0" prefWidth="728.0" style="-fx-background-color: #e7e7ea;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.roulettedemo.HelloController">
    <children>
-      <AnchorPane fx:id="rootDinamica" layoutX="269.0" layoutY="121.0" prefHeight="426.0" prefWidth="430.0" />
+      <AnchorPane layoutX="18.0" layoutY="120.0" prefHeight="426.0" prefWidth="353.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 28; -fx-border-color: #24292f; -fx-border-radius: 28; -fx-border-width: 2;" />
+      <AnchorPane fx:id="rootDinamica" layoutX="281.0" layoutY="120.0" prefHeight="426.0" prefWidth="430.0" style="-fx-background-color: bfc2ca; -fx-background-radius: 28; -fx-border-color: #24292f; -fx-border-radius: 28; -fx-border-width: 2;" />
       <AnchorPane layoutY="-8.0" prefHeight="110.0" prefWidth="728.0" style="-fx-background-color: #24292f;">
          <children>
             <ChoiceBox fx:id="selectGiocatore" layoutX="561.0" layoutY="40.0" prefHeight="42.0" prefWidth="143.0" style="-fx-border-color: bfc2ca; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-text-fill: white; -fx-border-width: 2;" />
@@ -37,7 +38,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <StackPane fx:id="wheelContainer" layoutX="14.0" layoutY="169.0" prefHeight="316.0" prefWidth="244.0">
+      <StackPane fx:id="wheelContainer" layoutX="26.0" layoutY="169.0" prefHeight="316.0" prefWidth="244.0">
          <children>
             <Circle fx:id="wheel" fill="WHITE" radius="119.0" stroke="#24292f" strokeType="INSIDE" strokeWidth="16.0" />
             <ImageView fitHeight="248.0" fitWidth="223.0" nodeOrientation="INHERIT" preserveRatio="true" translateX="-1.0" translateY="1.0">
