@@ -33,7 +33,7 @@
             </ImageView>
             <Label layoutX="113.0" layoutY="26.0" prefHeight="70.0" prefWidth="390.0" text="888 Roulette" textFill="#e7e7ea">
                <font>
-                  <Font name="Magneto Bold" size="53.0" />
+                  <Font name="Forte" size="53.0" />
                </font>
             </Label>
          </children>
