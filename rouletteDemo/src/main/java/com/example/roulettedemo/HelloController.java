@@ -117,6 +117,7 @@ public class HelloController {
         });
         pausa.play();
     }
+    @FXML
     private void inserimentoCorretto(Giocatore giocatore){
         controlRoot.setStyle("-fx-background-color:  #1e860e; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
         labelCredito.setText("Ottimo :)");
@@ -128,6 +129,35 @@ public class HelloController {
             entrataAnchor(controlRoot);
         });
         pausa.play();
+    }
+    @FXML
+    public void finePartita() {
+        // Creazione del quadrante
+        Rectangle quadrante = new Rectangle(170, 170);
+        quadrante.setArcWidth(16);
+        quadrante.setArcHeight(16);
+        quadrante.setFill(Color.web("#00FF00", 0.9)); // Colore di sfondo verde trasparente
+        quadrante.setLayoutX(270); // Posizione centrata rispetto alla ruota
+        quadrante.setLayoutY(209);
+
+        // Creazione del messaggio
+        Label messaggioConferma = new Label("PARTITA TERMINATA");
+        messaggioConferma.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Goudy Stout'; -fx-font-size: 8;");
+        messaggioConferma.setAlignment(Pos.CENTER);
+        messaggioConferma.setPrefWidth(170); // Larghezza uguale al quadrante
+        messaggioConferma.setPrefHeight(170); // Altezza uguale al quadrante
+        messaggioConferma.setLayoutX(270);
+        messaggioConferma.setLayoutY(209);
+
+
+        // Aggiunta del quadrante e del messaggio al contenitore
+        root.getChildren().addAll(quadrante, messaggioConferma);
+
+    }
+    @FXML
+    public void rimuoviGiocatore(Giocatore giocatore){
+        giocatori.remove(giocatore);
+        initializeGiocatoriBox();
     }
 
     //Metodi di modifica ed strutturazione delle fiches
@@ -407,7 +437,7 @@ public class HelloController {
 
         // Creazione del messaggio
         Label messaggioConferma = new Label("Estratto: " + estratto);
-        messaggioConferma.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Goudy Stout'; -fx-font-size: 16;");
+        messaggioConferma.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Goudy Stout'; -fx-font-size: 8;");
         messaggioConferma.setAlignment(Pos.CENTER);
         messaggioConferma.setPrefWidth(170); // Larghezza uguale al quadrante
         messaggioConferma.setPrefHeight(170); // Altezza uguale al quadrante

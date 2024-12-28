@@ -34,6 +34,15 @@ public class Giocatore extends Thread {
     public String toString(){ return "Giocatore: Id = "+this.identificativo+" Quantitativo Cassa: "+this.cassaPersonale+" €,\t"; }
 
     @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Giocatore){
+            Giocatore r=(Giocatore) obj;
+            return r.getCassaPersonale() == this.cassaPersonale && r.getIdentificativo().equalsIgnoreCase(this.identificativo);
+        }
+        return  false;
+    }
+
+    @Override
     public void run() {
         while (cassaPersonale > 0) {
             try {
@@ -56,5 +65,7 @@ public class Giocatore extends Thread {
                 System.err.println("Thread interrotto: " + e.getMessage());
             }
         }
+        rouletteAttuale.ritirati(this);
+        System.out.println(">> IL GIOCATORE "+this.identificativo+" SI E' RITIRATO");
     }
 }

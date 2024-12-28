@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class Roulette extends Thread {
     private final ArrayList<Puntata> puntate = new ArrayList<>();
     private final int numGioc;
+    private int numRitirati;
     private final Semaphore prontiAlGioco;
     private final HelloController helloController;
     private double cassa;
@@ -23,6 +24,7 @@ public class Roulette extends Thread {
         this.numGioc = numGioc;
         this.prontiAlGioco = prontiAlGioco;
         this.helloController = helloController;
+        this.numRitirati=0;
         initializeArrays();
     }
 
@@ -110,6 +112,10 @@ public class Roulette extends Thread {
         puntate.add(puntata);
     }
 
+    public void ritirati(Giocatore giocatore){
+        Platform.runLater(() -> helloController.rimuoviGiocatore(giocatore));
+        this.numRitirati++;
+    }
 
     /*METODI PER INTERFACCIA GRAFICA*/
     /*
@@ -133,6 +139,7 @@ public class Roulette extends Thread {
             Platform.runLater(() -> helloController.sovrastaWheel(numeroEstratto));
         }
     }
+    private void finePartita(){ Platform.runLater(() -> helloController.finePartita()); }
 
     /*METODI DI SINCRONIZZAZIONE*/
 
@@ -161,7 +168,7 @@ public class Roulette extends Thread {
 
     @Override
     public void run() {
-        while (this.cassa > 0) {
+        while (this.cassa > 0 && numRitirati!=numGioc) {
             try {
                 //FASE INIZIALE ---> ATTESA
                 TimeUnit.SECONDS.sleep(5);
@@ -187,5 +194,7 @@ public class Roulette extends Thread {
                 throw new RuntimeException(e);
             }
         }
+        finePartita();
+        System.out.println("PARTITA CONCLUSA");
     }
 }
