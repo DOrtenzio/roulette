@@ -124,7 +124,7 @@
                                        </font></Button>
                                     <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #24292f; -fx-background-radius: 8;" text="29" textFill="WHITE">
                                        <font>
-                                          <Font size="11.0" />
+                                          <Font name="Bodoni MT" size="12.0" />
                                        </font></Button>
                                     <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="28.0" style="-fx-background-color: #bc0000; -fx-background-radius: 8;" text="32" textFill="WHITE">
                                        <font>
@@ -230,7 +230,7 @@
                   </HBox>
                </children>
             </VBox>
-            <Button layoutX="290.0" layoutY="7.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="143.0" text="Button" />
+            <Button layoutX="290.0" layoutY="7.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="143.0" style="-fx-font-family: Goudy Stout; -fx-font-size: 9;" text="Button" />
          </children></AnchorPane>
       <AnchorPane layoutY="-8.0" prefHeight="110.0" prefWidth="728.0" style="-fx-background-color: #24292f;">
          <children>

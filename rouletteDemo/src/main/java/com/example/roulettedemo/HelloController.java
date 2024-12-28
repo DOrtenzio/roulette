@@ -22,11 +22,11 @@ public class HelloController {
     @FXML
     private ChoiceBox<String> selectGiocatore;
     @FXML
-    private AnchorPane rootDinamica, root, rootRuota, rootFish, controlRoot,boxRisPuntata,boxDenPuntata;
+    private AnchorPane rootDinamica, root, rootFish, controlRoot,boxRisPuntata,boxDenPuntata;
     @FXML
     private StackPane wheelContainer;
     @FXML
-    private Label labelCredito,labelIniziale;
+    private Label labelCredito,labelIniziale,labelPuntato,labelSoldiPuntato;
 
     private static final int[] ROSSI = {1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36};
     private ArrayList<Giocatore> giocatori;
@@ -43,14 +43,20 @@ public class HelloController {
         setCassa(giocatore.getCassaPersonale());
         labelIniziale.setVisible(false);
         rootDinamica.getChildren().clear();
+        Label labelBenvenuto=new Label("SEI PRONTO/A "+giocatore.getIdentificativo()+" ? ");
+        labelBenvenuto.setStyle("-fx-font-family: 'Goudy Stout'; -fx-font-size: 11;");
+        labelBenvenuto.setLayoutY(14);
+        labelBenvenuto.setLayoutX(18);
+        labelBenvenuto.setPrefWidth(244);
+        labelBenvenuto.setPrefHeight(30);
 
         VBox tabellone=creaTabellone();
         Button b = new Button("Punta");
-        b.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea;");
+        b.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
         b.setPrefWidth(143.0);
         b.setPrefHeight(38.0);
 
-        rootDinamica.getChildren().addAll(tabellone,b);
+        rootDinamica.getChildren().addAll(labelBenvenuto,tabellone,b);
 
         b.setLayoutX(290);
         b.setLayoutY(7);
@@ -78,8 +84,11 @@ public class HelloController {
 
         b.setOnMouseClicked(e -> {
             try {
-                giocatore.premiPulsante(Double.parseDouble(this.denaroPuntato), this.puntata);
-                inserimentoCorretto(); //Avviso visivo all'utente
+                if (denaroPuntato.equalsIgnoreCase("all"))
+                    giocatore.premiPulsante(giocatore.getCassaPersonale(), this.puntata);
+                else
+                    giocatore.premiPulsante(Double.parseDouble(this.denaroPuntato), this.puntata);
+                inserimentoCorretto(giocatore); //Avviso visivo all'utente
                 rootDinamica.getChildren().clear();
                 rootFish.getChildren().clear();
 
@@ -93,30 +102,29 @@ public class HelloController {
     }
 
     public void setCassa(double cassa){
-        labelCredito.setText("Credito attuale: "+cassa);
+        labelCredito.setText("Credito attuale: "+cassa+" €");
     }
     private void errore(){
-        controlRoot.setStyle("-fx-background-color:  #bc0000; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0;");
+        controlRoot.setStyle("-fx-background-color:  #bc0000; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
         String s= labelCredito.getText();
         labelCredito.setText("Errore nell'inserimento");
         entrataAnchor(controlRoot);
         PauseTransition pausa = new PauseTransition(Duration.seconds(3));
         pausa.setOnFinished(e -> {
-            controlRoot.setStyle("-fx-background-color: bfc2ca; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0;");
+            controlRoot.setStyle("-fx-background-color: bfc2ca; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
             labelCredito.setText(s);
             entrataAnchor(controlRoot);
         });
         pausa.play();
     }
-    private void inserimentoCorretto(){
-        controlRoot.setStyle("-fx-background-color:  #1e860e; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0;");
-        String s= labelCredito.getText();
+    private void inserimentoCorretto(Giocatore giocatore){
+        controlRoot.setStyle("-fx-background-color:  #1e860e; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
         labelCredito.setText("Ottimo :)");
         entrataAnchor(controlRoot);
         PauseTransition pausa = new PauseTransition(Duration.seconds(3));
         pausa.setOnFinished(e -> {
-            controlRoot.setStyle("-fx-background-color: bfc2ca; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0;");
-            labelCredito.setText(s);
+            controlRoot.setStyle("-fx-background-color: bfc2ca; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
+            labelCredito.setText("CREDITO ATTUALE: "+giocatore.getCassaPersonale()+" €");
             entrataAnchor(controlRoot);
         });
         pausa.play();
@@ -163,7 +171,7 @@ public class HelloController {
             button.setLayoutY(layoutY);
             button.setPrefHeight(70.0);
             button.setPrefWidth(70.0);
-            button.setStyle("-fx-background-radius: 35; -fx-background-color: #E4ECF6; -fx-border-color: " + borderColor + "; -fx-border-radius: 35; -fx-border-width: 10;");
+            button.setStyle("-fx-background-radius: 35; -fx-background-color: #E4ECF6; -fx-border-color: " + borderColor + "; -fx-border-radius: 35; -fx-border-width: 10; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
             button.setOnAction(this::selezionaPuntataDenaro); //Assegno al bottone su cui si richiama il set il metodo
 
             fiches[inserite++]=button;
@@ -324,13 +332,13 @@ public class HelloController {
     private Button creaBottone(String text, double width, double height, String color, double radius, String textColor) {
         Button b = new Button(text);
         b.setPrefSize(width, height);
-        b.setStyle("-fx-background-color: " + color + "; -fx-background-radius: " + radius + "; -fx-text-fill: " + textColor + ";");
+        b.setStyle("-fx-background-color: " + color + "; -fx-background-radius: " + radius + "; -fx-text-fill: " + textColor + "; -fx-font-family: 'Bodoni MT'; -fx-font-size: 10;");
         return b;
     }
     private Button creaBottoneConBordo(String text, double width, double height, String color, double radius, String textColor) {
         Button b = new Button(text);
         b.setPrefSize(width, height);
-        b.setStyle("-fx-background-color: " + color + "; -fx-background-radius: " + radius + "; -fx-text-fill: " + textColor + "; -fx-border-radius: 2; -fx-border-width: 1; -fx-border-color:  #24292f");
+        b.setStyle("-fx-background-color: " + color + "; -fx-background-radius: " + radius + "; -fx-text-fill: " + textColor + "; -fx-border-radius: 2; -fx-border-width: 1; -fx-border-color:  #24292f; -fx-font-family: 'Bodoni MT'; -fx-font-size: 10;");
         return b;
     }
     private boolean isRosso(int numero){
@@ -349,11 +357,14 @@ public class HelloController {
         else
             puntata=bottSelez;
         System.out.println("Hai cliccato sul pulsante con ID: " + puntata);
+        labelPuntato.setText("Hai scelto : " + puntata);
+
     }
     private void selezionaPuntataDenaro(ActionEvent event) {
         Button clickedButton = (Button) event.getSource(); // Recupera il pulsante cliccato in questo caso fiches
         denaroPuntato=clickedButton.getText();
         System.out.println("Hai puntato su: " + denaroPuntato);
+        labelSoldiPuntato.setText("con : "+denaroPuntato);
     }
 
 
@@ -396,7 +407,7 @@ public class HelloController {
 
         // Creazione del messaggio
         Label messaggioConferma = new Label("Estratto: " + estratto);
-        messaggioConferma.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;");
+        messaggioConferma.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Goudy Stout'; -fx-font-size: 16;");
         messaggioConferma.setAlignment(Pos.CENTER);
         messaggioConferma.setPrefWidth(170); // Larghezza uguale al quadrante
         messaggioConferma.setPrefHeight(170); // Altezza uguale al quadrante
