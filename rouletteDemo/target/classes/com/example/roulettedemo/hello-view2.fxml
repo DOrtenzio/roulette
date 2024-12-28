@@ -18,8 +18,14 @@
 
 <AnchorPane fx:id="root" prefHeight="568.0" prefWidth="728.0" style="-fx-background-color: #e7e7ea;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.roulettedemo.HelloController">
    <children>
-      <AnchorPane layoutX="18.0" layoutY="120.0" prefHeight="426.0" prefWidth="353.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 28; -fx-border-color: #24292f; -fx-border-radius: 28; -fx-border-width: 2;" />
-      <AnchorPane fx:id="rootDinamica" layoutX="281.0" layoutY="120.0" prefHeight="426.0" prefWidth="430.0" style="-fx-background-color: bfc2ca; -fx-background-radius: 28; -fx-border-color: #24292f; -fx-border-radius: 28; -fx-border-width: 2;" />
+      <AnchorPane fx:id="rootRuota" layoutX="4.0" layoutY="146.0" prefHeight="372.0" prefWidth="367.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 28; -fx-border-color: #24292f; -fx-border-radius: 28; -fx-border-width: 2;" />
+      <AnchorPane fx:id="rootDinamica" layoutX="281.0" layoutY="120.0" prefHeight="426.0" prefWidth="430.0" style="-fx-background-color: bfc2ca; -fx-background-radius: 28; -fx-border-color: #24292f; -fx-border-radius: 28; -fx-border-width: 2;">
+         <ImageView fitHeight="334.0" fitWidth="367.0" layoutX="38.0" layoutY="20.0" nodeOrientation="INHERIT" preserveRatio="true" translateX="-1.0" translateY="1.0">
+            <image>
+               <Image url="@img/omF.png" />
+            </image>
+         </ImageView>
+      </AnchorPane>
       <AnchorPane layoutY="-8.0" prefHeight="110.0" prefWidth="728.0" style="-fx-background-color: #24292f;">
          <children>
             <ChoiceBox fx:id="selectGiocatore" layoutX="561.0" layoutY="40.0" prefHeight="42.0" prefWidth="143.0" style="-fx-border-color: bfc2ca; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-text-fill: white; -fx-border-width: 2;" />
@@ -38,7 +44,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <StackPane fx:id="wheelContainer" layoutX="26.0" layoutY="169.0" prefHeight="316.0" prefWidth="244.0">
+      <StackPane fx:id="wheelContainer" layoutX="23.0" layoutY="171.0" prefHeight="316.0" prefWidth="244.0" visible="false">
          <children>
             <Circle fx:id="wheel" fill="WHITE" radius="119.0" stroke="#24292f" strokeType="INSIDE" strokeWidth="16.0" />
             <ImageView fitHeight="248.0" fitWidth="223.0" nodeOrientation="INHERIT" preserveRatio="true" translateX="-1.0" translateY="1.0">
@@ -51,5 +57,15 @@
             </ImageView>
          </children>
       </StackPane>
+      <AnchorPane fx:id="rootFish" layoutX="299.0" layoutY="475.0" prefHeight="93.0" prefWidth="398.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 28 28 0 0; -fx-border-color: #24292f; -fx-border-radius: 28 28 0 0; -fx-border-width: 2;" />
+      <AnchorPane fx:id="controlRoot" layoutY="120.0" prefHeight="52.0" prefWidth="244.0" style="-fx-background-color: bfc2ca; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0;" visible="false">
+         <children>
+            <Label fx:id="labelCredito" layoutX="14.0" layoutY="11.0" prefHeight="30.0" prefWidth="216.0" text="Credito attuale: " />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="boxDenPuntata" layoutY="509.0" prefHeight="52.0" prefWidth="223.0" style="-fx-background-color: #e1e2e6; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0;" visible="false">
+      </AnchorPane>
+      <AnchorPane fx:id="boxRisPuntata" layoutY="469.0" prefHeight="52.0" prefWidth="244.0" style="-fx-background-color: bfc2ca; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0;" visible="false">
+      </AnchorPane>
    </children>
 </AnchorPane>

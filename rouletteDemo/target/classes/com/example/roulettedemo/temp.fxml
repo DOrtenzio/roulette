@@ -18,7 +18,7 @@
 
 <AnchorPane fx:id="root" prefHeight="568.0" prefWidth="728.0" style="-fx-background-color: #e7e7ea;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.roulettedemo.HelloController">
    <children>
-      <AnchorPane layoutX="4.0" layoutY="120.0" prefHeight="426.0" prefWidth="367.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 28; -fx-border-color: #24292f; -fx-border-radius: 28; -fx-border-width: 2;" />
+      <AnchorPane layoutX="4.0" layoutY="146.0" prefHeight="376.0" prefWidth="367.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 28; -fx-border-color: #24292f; -fx-border-radius: 28; -fx-border-width: 2;" />
       <AnchorPane fx:id="rootDinamica" layoutX="271.0" layoutY="120.0" prefHeight="426.0" prefWidth="451.0" style="-fx-background-color: bfc2ca; -fx-background-radius: 28; -fx-border-color: #24292f; -fx-border-radius: 28; -fx-border-width: 2;">
          <children>
             <VBox layoutX="24.0" layoutY="54.0" prefHeight="297.0" prefWidth="411.0">
@@ -230,6 +230,7 @@
                   </HBox>
                </children>
             </VBox>
+            <Button layoutX="290.0" layoutY="7.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="143.0" text="Button" />
          </children></AnchorPane>
       <AnchorPane layoutY="-8.0" prefHeight="110.0" prefWidth="728.0" style="-fx-background-color: #24292f;">
          <children>
@@ -249,7 +250,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <StackPane fx:id="wheelContainer" layoutX="18.0" layoutY="169.0" prefHeight="316.0" prefWidth="244.0">
+      <StackPane fx:id="wheelContainer" layoutX="18.0" layoutY="170.0" prefHeight="316.0" prefWidth="244.0">
          <children>
             <Circle fx:id="wheel" fill="WHITE" radius="119.0" stroke="#24292f" strokeType="INSIDE" strokeWidth="16.0" />
             <ImageView fitHeight="248.0" fitWidth="223.0" nodeOrientation="INHERIT" preserveRatio="true" translateX="-1.0" translateY="1.0">
@@ -262,5 +263,15 @@
             </ImageView>
          </children>
       </StackPane>
+      <AnchorPane fx:id="rootFish" layoutX="299.0" layoutY="487.0" prefHeight="93.0" prefWidth="398.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 28 28 0 0; -fx-border-color: #24292f; -fx-border-radius: 28 28 0 0; -fx-border-width: 2;">
+         <children>
+            <Button layoutX="21.0" layoutY="22.0" mnemonicParsing="false" text="Button" />
+         </children></AnchorPane>
+      <AnchorPane fx:id="controlRoot" layoutY="120.0" prefHeight="52.0" prefWidth="244.0" style="-fx-background-color: bfc2ca; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0;">
+      </AnchorPane>
+      <AnchorPane layoutY="518.0" prefHeight="52.0" prefWidth="223.0" style="-fx-background-color: #e1e2e6; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0;">
+      </AnchorPane>
+      <AnchorPane layoutY="478.0" prefHeight="52.0" prefWidth="244.0" style="-fx-background-color: bfc2ca; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0;">
+      </AnchorPane>
    </children>
 </AnchorPane>

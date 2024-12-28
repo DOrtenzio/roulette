@@ -31,6 +31,7 @@ public class HelloApplication extends Application {
 
         stage.setTitle("Roulette Demo");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
