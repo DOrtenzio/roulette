@@ -5,8 +5,8 @@
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 
 <!--
   <color name="Platinum" hex="e7e7ea" r="231" g="231" b="234" />
@@ -20,12 +20,9 @@
    <children>
       <AnchorPane fx:id="rootRuota" layoutX="4.0" layoutY="146.0" prefHeight="372.0" prefWidth="367.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 28; -fx-border-color: #24292f; -fx-border-radius: 28; -fx-border-width: 2;">
          <children>
-            <Label layoutX="29.0" layoutY="28.0" prefHeight="316.0" prefWidth="216.0" text="Label">
-               <font>
-                  <Font name="EmojiOne Color SVGinOT" size="12.0" />
-               </font>
-            </Label>
-         </children></AnchorPane>
+            <Label fx:id="labelIniziale" layoutX="29.0" layoutY="28.0" prefHeight="316.0" prefWidth="216.0" text="Label" />
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="rootDinamica" layoutX="280.0" layoutY="132.0" prefHeight="426.0" prefWidth="430.0" style="-fx-background-color: bfc2ca; -fx-background-radius: 28; -fx-border-color: #24292f; -fx-border-radius: 28; -fx-border-width: 2;">
          <ImageView fx:id="immIniziale" fitHeight="334.0" fitWidth="367.0" layoutX="38.0" layoutY="20.0" nodeOrientation="INHERIT" preserveRatio="true" translateX="-1.0" translateY="1.0">
             <image>
@@ -36,19 +33,23 @@
       <AnchorPane layoutY="-8.0" prefHeight="110.0" prefWidth="728.0" style="-fx-background-color: #24292f;">
          <children>
             <ChoiceBox fx:id="selectGiocatore" layoutX="561.0" layoutY="40.0" prefHeight="42.0" prefWidth="143.0" style="-fx-border-color: bfc2ca; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-text-fill: white; -fx-border-width: 2;" />
-            <ImageView fitHeight="69.0" fitWidth="152.0" layoutX="9.0" layoutY="25.0" nodeOrientation="INHERIT" preserveRatio="true">
+            <ImageView fitHeight="79.0" fitWidth="110.0" layoutX="18.0" layoutY="25.0" nodeOrientation="INHERIT" preserveRatio="true">
                <image>
-                  <Image url="@img/logos.jpg" />
+                  <Image url="@img/logo.png" />
                </image>
                <effect>
-                  <GaussianBlur radius="1.0" />
+                  <InnerShadow radius="18.7725" width="56.09">
+                     <color>
+                        <Color red="0.1411764770746231" green="0.16078431904315948" blue="0.18431372940540314" />
+                     </color>
+                  </InnerShadow>
                </effect>
             </ImageView>
-            <Label layoutX="113.0" layoutY="26.0" prefHeight="70.0" prefWidth="390.0" text="888 Roulette" textFill="#e7e7ea">
-               <font>
-                  <Font name="Forte" size="53.0" />
-               </font>
-            </Label>
+            <ImageView fitHeight="73.0" fitWidth="493.0" layoutX="57.0" layoutY="22.0" nodeOrientation="INHERIT" preserveRatio="true">
+               <image>
+                  <Image url="@img/testo.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <StackPane fx:id="wheelContainer" layoutX="23.0" layoutY="171.0" prefHeight="316.0" prefWidth="244.0" visible="false">
