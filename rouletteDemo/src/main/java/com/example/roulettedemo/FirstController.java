@@ -5,7 +5,6 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,178 +17,190 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Semaphore;
 
 public class FirstController {
+
     @FXML
-    private AnchorPane box1,box2,box3,box4,box5,root;
+    private AnchorPane box1, box2, box3, box4, box5, root;
     @FXML
-    private TextField t1,t2;
+    private TextField t1, t2;
     @FXML
     private Label giocPresenti;
     @FXML
-    private Button b1,b2,b3,b4,b5;
+    private Button b1, b2, b3, b4, b5;
 
     private ArrayList<Giocatore> giocatori;
 
-    //Costruttore
-    public FirstController(){
-        this.giocatori=new ArrayList<Giocatore>();
+    public FirstController() {
+        this.giocatori = new ArrayList<>();
     }
 
     @FXML
-    public void initialize(){
-        b1.setOnMouseMoved(event -> {
-            b1.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
-        });
-        b1.setOnMouseExited(event -> {
-            b1.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
-        });
-        b2.setOnMouseMoved(event -> {
-            b2.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
-        });
-        b2.setOnMouseExited(event -> {
-            b2.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
-        });
-        b3.setOnMouseMoved(event -> {
-            b3.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
-        });
-        b3.setOnMouseExited(event -> {
-            b3.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
-        });
-
-        b4.setOnMouseMoved(event -> {
-            b4.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
-        });
-        b4.setOnMouseExited(event -> {
-            b4.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #e1e2e6; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
-        });
-        b5.setOnMouseMoved(event -> {
-            b5.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
-        });
-        b5.setOnMouseExited(event -> {
-            b5.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: bfc2ca; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
-        });
-
+    public void initialize() {
+        // Configurazione degli stili dei pulsanti per gli eventi di hover
+        configuraBottoneSopra(b1);
+        configuraBottoneSopra(b2);
+        configuraBottoneSopra(b3);
+        configuraBottoneSopra(b4);
+        configuraBottoneSopra(b5);
     }
 
-    //Metodi
-    @FXML
-    public void entrataIniziale(){
-        //Entrata box principali
-        entrataAnchor(box1,-300, 0);
-        entrataAnchor(box4,1028, 0);
+    /*
+      Configura gli stili per i pulsanti al passaggio del mouse.
+      @param button Il pulsante da configurare.
+     */
+    private void configuraBottoneSopra(Button button) {
+        button.setOnMouseMoved(event -> button.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;"));
+        button.setOnMouseExited(event -> button.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;"));
     }
 
+
+    // Effettua l'animazione iniziale di entrata dei box principali.
     @FXML
-    public void aggiungiGiocatore(){
+    public void entrataIniziale() {
+        entrataAnchor(box1, -300, 0);
+        entrataAnchor(box4, 1028, 0);
+    }
+
+
+    // Mostra il box per aggiungere un nuovo giocatore.
+    @FXML
+    public void aggiungiGiocatore() {
         box2.setVisible(true);
         box2.setDisable(false);
-        entrataAnchor(box2,-300, 0);
+        entrataAnchor(box2, -300, 0);
     }
 
+
+    // Aggiunge un nuovo giocatore all'elenco e aggiorna l'interfaccia.
     @FXML
-    public void inserimentoGiocArray(){
+    public void inserimentoGiocArray() {
         try {
             if (!t1.getText().isBlank() && !t2.getText().isBlank()) {
                 giocatori.add(new Giocatore(t1.getText(), Double.parseDouble(t2.getText()), null, null));
                 giocPresenti.setText(giocPresenti.getText() + "\n >> " + t1.getText());
                 t1.clear();
                 t2.clear();
-            } else
+
+                // Mostra il box3 solo al primo inserimento ===>  box3 == inizio partita
+                if (giocatori.size() == 1) {
+                    box3.setVisible(true);
+                    box3.setDisable(false);
+                    entrataAnchor(box3, 1028, 0);
+                }
+            } else {
                 errore();
-        } catch (Exception e) {
+            }
+        } catch (NumberFormatException e) {
             errore();
         }
-        if ((giocatori.size()-1) == 0){ //Solo per primo inserito
-            box3.setVisible(true);
-            box3.setDisable(false);
-            entrataAnchor(box3,1028, 0);
-        }
     }
+
+     // Mostra un messaggio di errore temporaneo sul box1.
     @FXML
-    private void errore(){
-        box1.setStyle("-fx-background-color:  #bc0000; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
-        entrataAnchor(box1,-300, 0);
+    private void errore() {
+        box1.setStyle("-fx-background-color: #bc0000; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0;");
+        entrataAnchor(box1, -300, 0);
+
         PauseTransition pausa = new PauseTransition(Duration.seconds(3));
         pausa.setOnFinished(e -> {
             box1.setStyle("-fx-background-color: bfc2ca; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0;");
-            entrataAnchor(box1,-300 ,0);
+            entrataAnchor(box1, -300, 0);
         });
         pausa.play();
     }
+
+
+    // Mostra il box di conferma.
     @FXML
-    private void isSicuro(){
-        box1.setDisable(true);
-        box2.setDisable(true);
-        box3.setDisable(true);
-        box4.setDisable(true);
+    private void isSicuro() {
+        disabilitaTutto();
 
         box5.setVisible(true);
         box5.setDisable(false);
-        entrataAnchor(box5,-300,0);
+        entrataAnchor(box5, -300, 0);
     }
 
-    @FXML
-    private void nonSicuro(){
-        box1.setDisable(false);
-        box2.setDisable(false);
-        box3.setDisable(false);
-        box4.setDisable(false);
 
-        entrataAnchor(box5,0,-300);
+    // Nasconde il box di conferma e riattiva gli altri box.
+    @FXML
+    private void nonSicuro() {
+        abilitaTutto();
+        entrataAnchor(box5, 0, -300);
         box5.setVisible(false);
         box5.setDisable(true);
     }
 
+    /*
+     Esegue l'animazione di entrata per un AnchorPane.
+     param ---> anchorPane Il pannello da animare.
+     param ---> xIn Posizione iniziale.
+     param ---> xFin Posizione finale.
+     */
     @FXML
-    private void entrataAnchor(AnchorPane anchorPane, int xIn,int xFin){
-        // Posizione iniziale fuori dallo schermo
+    private void entrataAnchor(AnchorPane anchorPane, int xIn, int xFin) {
         anchorPane.setTranslateX(xIn);
 
-        // Creazione del TranslateTransition
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), anchorPane);
-        translateTransition.setFromX(xIn); // Valore iniziale
-        translateTransition.setToX(xFin);     // Valore finale
-        translateTransition.setCycleCount(1); // Nessun ciclo ripetuto
-        translateTransition.setAutoReverse(false); // Non invertire l'animazione
-
-        // Avvia l'animazione
+        translateTransition.setFromX(xIn);
+        translateTransition.setToX(xFin);
+        translateTransition.setCycleCount(1);
+        translateTransition.setAutoReverse(false);
         translateTransition.play();
     }
 
+
+    // Passa alla vista "hello-view2" e avvia i thread dei giocatori.
     @FXML
-    private void switchToHelloView2(ActionEvent event) throws IOException {
+    private void cambiaAHelloView2(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view2.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 728, 568);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        HelloController helloController = fxmlLoader.getController(); //In JavaFX, i controller gestiti tramite file FXML vengono automaticamente creati e inizializzati da FXMLLoader
+        HelloController helloController = fxmlLoader.getController();
 
-        // Configura attributi della Roulette e dei giocatori
-        Semaphore semaphore = new Semaphore(this.giocatori.size());
-        helloController.setGiocatori(this.giocatori);
-        helloController.initializeGiocatoriBox();
+        // Configura Roulette e giocatori
+        Semaphore semaphore = new Semaphore(giocatori.size());
+        helloController.setGiocatori(giocatori);
+        helloController.inserimentoGiocatoriChoiceBox();
+
         Roulette roulette = new Roulette(50000.0, semaphore.availablePermits(), semaphore, helloController);
-        //Struttura Costruttore: cassa, numero giocatori, semaforo condiviso per la gestione della rotazione, controller per modifiche grafiche, array di giocatori
-
-        avviaThreads(roulette, this.giocatori,semaphore);
+        avviaThreads(roulette, giocatori, semaphore);
 
         stage.setResizable(false);
         stage.getIcons().add(new Image(HelloApplication.class.getResource("/com/example/roulettedemo/img/logo.png").toString()));
         stage.setScene(scene);
     }
 
-    //Gestionali thread
-
+    /*
+     Avvia i thread per la Roulette e per ogni giocatore.
+     param ---> roulette La roulette da avviare.
+     param ---> giocatori L'elenco dei giocatori.
+     param ---> semaphore Il semaforo condiviso.
+     */
     private void avviaThreads(Roulette roulette, ArrayList<Giocatore> giocatori, Semaphore semaphore) {
         roulette.start();
         for (Giocatore giocatore : giocatori) {
-            giocatore.setRouletteAttuale(roulette); // Imposta la Roulette per ogni giocatore
-            giocatore.setProntiAlGioco(semaphore); //Imposto il semaforo condiviso
-
+            giocatore.setRouletteAttuale(roulette);
+            giocatore.setProntiAlGioco(semaphore);
             giocatore.start();
         }
+    }
+
+    // Disabilita tutti i box x conferma avvio
+    private void disabilitaTutto() {
+        box1.setDisable(true);
+        box2.setDisable(true);
+        box3.setDisable(true);
+        box4.setDisable(true);
+    }
+
+    // Abilita tutti i box
+    private void abilitaTutto() {
+        box1.setDisable(false);
+        box2.setDisable(false);
+        box3.setDisable(false);
+        box4.setDisable(false);
     }
 }

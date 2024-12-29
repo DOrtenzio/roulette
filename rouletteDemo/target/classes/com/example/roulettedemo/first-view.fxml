@@ -32,7 +32,7 @@
         <AnchorPane fx:id="box5" disable="true" layoutX="219.0" layoutY="214.0" prefHeight="142.0" prefWidth="283.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 12; -fx-border-color: #24292f; -fx-border-radius: 12; -fx-border-width: 2;" visible="false">
             <children>
                 <Button fx:id="b4" layoutX="42.0" layoutY="83.0" mnemonicParsing="false" onAction="#nonSicuro" prefHeight="42.0" prefWidth="99.0" style="-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #e1e2e6; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;" text="No" textAlignment="CENTER" wrapText="true" />
-                <Button fx:id="b5" layoutX="154.0" layoutY="82.0" mnemonicParsing="false" onAction="#switchToHelloView2" prefHeight="42.0" prefWidth="99.0" style="-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: bfc2ca; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;" text="Si" textAlignment="CENTER" wrapText="true" />
+                <Button fx:id="b5" layoutX="154.0" layoutY="82.0" mnemonicParsing="false" onAction="#cambiaAHelloView2" prefHeight="42.0" prefWidth="99.0" style="-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: bfc2ca; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;" text="Si" textAlignment="CENTER" wrapText="true" />
             <Label alignment="CENTER" layoutX="29.0" layoutY="14.0" prefHeight="60.0" prefWidth="231.0" style="-fx-font-family: 'Goudy Stout'; -fx-font-size: 18;" text="Sei sicuro?" />
             </children>
         </AnchorPane>
