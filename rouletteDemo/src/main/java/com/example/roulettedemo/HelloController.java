@@ -9,6 +9,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -35,6 +37,7 @@ public class HelloController {
     public void setGiocatori(ArrayList<Giocatore> giocatori) {
         this.giocatori = giocatori;
     }
+
 
     /*METODI PER LA GESTIONE DEL TURNO*/
     @FXML
@@ -233,6 +236,29 @@ public class HelloController {
         box5.setDisable(false);
         box5.setVisible(true);
         entrataAnchor(box5);
+    }
+
+    public void selectNoGiocatore(){ //Metodo per uscire in automatico della selezione del singolo
+        selectGiocatore.setValue(null);
+
+        // Creiamo un oggetto ImageView
+        ImageView immIniziale = new ImageView();
+
+        // Impostiamo l'immagine da caricare
+        Image image = new Image(getClass().getResourceAsStream("/com/example/roulettedemo/img/omF.png"));
+        immIniziale.setImage(image);
+
+        // Impostiamo le proprietà
+        immIniziale.setFitHeight(334.0);
+        immIniziale.setFitWidth(367.0);
+        immIniziale.setLayoutX(33.0);
+        immIniziale.setLayoutY(28.0);
+        immIniziale.setNodeOrientation(javafx.geometry.NodeOrientation.INHERIT);
+        immIniziale.setPreserveRatio(true);
+        immIniziale.setTranslateX(-1.0);
+        immIniziale.setTranslateY(1.0);
+
+        rootDinamica.getChildren().add(immIniziale);
     }
 
     /*METODI GESTIONE DEL TABELLONE RELATIVI AL TURNO*/
@@ -587,11 +613,19 @@ public class HelloController {
 
     @FXML
     public void sovrastaWheel(int estratto) {
+        String colore;
+        if (isRosso(estratto))
+            colore="#bc0000";
+        else if (estratto==0)
+            colore="#00FF00";
+        else
+            colore="#24292f";
+
         // Creazione del quadrante
         Rectangle quadrante = new Rectangle(170, 170);
         quadrante.setArcWidth(16);
         quadrante.setArcHeight(16);
-        quadrante.setFill(Color.web("#00FF00", 0.9)); // Colore di sfondo verde trasparente
+        quadrante.setFill(Color.web(colore, 0.9)); // Colore di sfondo verde trasparente
         quadrante.setLayoutX(270); // Posizione centrata rispetto alla ruota
         quadrante.setLayoutY(209);
 

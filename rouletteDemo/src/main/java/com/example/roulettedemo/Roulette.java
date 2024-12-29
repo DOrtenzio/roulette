@@ -137,6 +137,12 @@ public class Roulette extends Thread {
                 throw new RuntimeException(e);
             }
             Platform.runLater(() -> helloController.sovrastaWheel(numeroEstratto));
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            Platform.runLater(() -> helloController.selectNoGiocatore());
         }
     }
     private void finePartita(){ Platform.runLater(() -> helloController.finePartita()); }
