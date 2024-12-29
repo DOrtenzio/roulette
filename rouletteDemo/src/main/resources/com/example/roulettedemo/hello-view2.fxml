@@ -98,7 +98,7 @@
             </font>
          </Label>
       </AnchorPane>
-      <Label layoutX="680.0" layoutY="4.0" prefHeight="18.0" prefWidth="44.0" text="Vers : 2.1" textFill="#e7e7ea">
+      <Label layoutX="674.0" layoutY="4.0" prefHeight="18.0" prefWidth="50.0" text="Vers : 2.15" textFill="#e7e7ea">
          <font>
             <Font size="10.0" />
          </font>

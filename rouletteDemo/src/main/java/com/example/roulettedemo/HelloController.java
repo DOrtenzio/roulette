@@ -265,6 +265,7 @@ public class HelloController {
     public void selectNoGiocatore(){ //Metodo per uscire in automatico della selezione del singolo
         selectGiocatore.setValue(null);
         rootDinamica.getChildren().clear();
+        rootFish.getChildren().clear();
         labelCredito.setText("Seleziona un giocatore");
 
         // Creiamo un oggetto ImageView
