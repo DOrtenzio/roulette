@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="root" prefHeight="568.0" prefWidth="728.0" style="-fx-background-color: #24292f;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.roulettedemo.FirstController">
+    <children>
+        <AnchorPane fx:id="box4" layoutX="434.0" layoutY="135.0" prefHeight="400.0" prefWidth="294.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 28 0 0 28; -fx-border-color: #24292f; -fx-border-radius: 28 0 0 28; -fx-border-width: 2 0 2 2;">
+            <children>
+                <Label alignment="TOP_CENTER" contentDisplay="TOP" layoutX="14.0" layoutY="14.0" prefHeight="28.0" prefWidth="268.0" style="-fx-font-family: 'Goudy Stout'; -fx-font-size: 10;" text="Giocatori inseriti :" wrapText="true" />
+                <Label fx:id="giocPresenti" alignment="TOP_LEFT" layoutX="10.0" layoutY="42.0" prefHeight="290.0" prefWidth="277.0" style="-fx-font-family: 'Bodoni MT'; -fx-font-size: 11;" text="" />
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="box3" disable="true" layoutX="544.0" layoutY="494.0" prefHeight="60.0" prefWidth="184.0" style="-fx-background-color: bfc2ca; -fx-background-radius: 12 0 0 12; -fx-border-color: #24292f; -fx-border-radius: 12 0 0 12; -fx-border-width: 2 0 2 2;" visible="false">
+            <Button layoutX="11.0" layoutY="9.0" mnemonicParsing="false" onAction="#isSicuro" prefHeight="42.0" prefWidth="164.0" style="-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;" text="AVVIA PARTITA" textAlignment="CENTER" wrapText="true" />
+        </AnchorPane>
+        <AnchorPane fx:id="box2" disable="true" layoutY="248.0" prefHeight="290.0" prefWidth="259.0" style="-fx-background-color: #e1e2e6; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0;" visible="false">
+            <children>
+                <Label layoutX="14.0" layoutY="41.0" prefHeight="28.0" prefWidth="206.0" style="-fx-font-family: 'Bodoni MT'; -fx-font-size: 16;" text="Inserisci nickname" />
+                <TextField fx:id="t1" layoutX="14.0" layoutY="69.0" prefHeight="26.0" prefWidth="218.0" promptText="Albano Carrisi" style="-fx-font-family: 'Bodoni MT'; -fx-font-size: 16; -fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea;" />
+                <Label layoutX="14.0" layoutY="120.0" prefHeight="28.0" prefWidth="206.0" style="-fx-font-family: 'Bodoni MT'; -fx-font-size: 16;" text="Ricarica il tuo e-wallet" />
+                <TextField fx:id="t2" layoutX="14.0" layoutY="149.0" prefHeight="26.0" prefWidth="218.0" promptText="1900.0 €" style="-fx-font-family: 'Bodoni MT'; -fx-font-size: 16; -fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea;" />
+                <Button layoutX="126.0" layoutY="219.0" mnemonicParsing="false" onAction="#inserimentoGiocArray" prefHeight="28.0" prefWidth="117.0" style="-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;" text="Inserisci" textAlignment="CENTER" wrapText="true" />
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="box1" layoutY="189.0" prefHeight="82.0" prefWidth="283.0" style="-fx-background-color: bfc2ca; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0;">
+            <children>
+                <Button layoutX="59.0" layoutY="15.0" mnemonicParsing="false" onAction="#aggiungiGiocatore" prefHeight="52.0" prefWidth="156.0" style="-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;" text="Aggiungi giocatore" textAlignment="CENTER" wrapText="true" />
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="box5" disable="true" layoutX="219.0" layoutY="214.0" prefHeight="142.0" prefWidth="283.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 12; -fx-border-color: #24292f; -fx-border-radius: 12; -fx-border-width: 2;" visible="false">
+            <children>
+                <Button layoutX="42.0" layoutY="83.0" mnemonicParsing="false" onAction="#nonSicuro" prefHeight="42.0" prefWidth="99.0" style="-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #e1e2e6; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;" text="No" textAlignment="CENTER" wrapText="true" />
+                <Button layoutX="154.0" layoutY="82.0" mnemonicParsing="false" onAction="#switchToHelloView2" prefHeight="42.0" prefWidth="99.0" style="-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: bfc2ca; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;" text="Si" textAlignment="CENTER" wrapText="true" />
+            <Label alignment="CENTER" layoutX="29.0" layoutY="14.0" prefHeight="60.0" prefWidth="231.0" style="-fx-font-family: 'Goudy Stout'; -fx-font-size: 18;" text="Sei sicuro?" />
+            </children>
+        </AnchorPane>
+        <ImageView fitHeight="219.0" fitWidth="677.0" layoutX="22.0" layoutY="14.0" nodeOrientation="INHERIT" preserveRatio="true">
+            <image>
+                <Image url="@img/testo.png" />
+            </image>
+        </ImageView>
+    </children>
+</AnchorPane>

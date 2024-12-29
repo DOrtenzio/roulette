@@ -6,9 +6,9 @@ public class Giocatore extends Thread {
     private double cassaPersonale; //Cassa personale del giocatore
     private Roulette rouletteAttuale;
     private Puntata puntataCorrente;
+    private Semaphore prontiAlGioco;
 
     private final String identificativo;
-    private final Semaphore prontiAlGioco;
     private final Semaphore attesaPulsante = new Semaphore(0);
 
     public Giocatore(String identificativo, double cassa, Roulette rouletteAttuale, Semaphore prontiAlGioco) {
@@ -24,6 +24,7 @@ public class Giocatore extends Thread {
     public void setCassaPersonale(double cassaPersonale) { this.cassaPersonale = cassaPersonale; }
     public void setRouletteAttuale(Roulette rouletteAttuale){ this.rouletteAttuale = rouletteAttuale; }
     public Puntata getPuntataCorrente() { return puntataCorrente; }
+    public void setProntiAlGioco(Semaphore prontiAlGioco) { this.prontiAlGioco = prontiAlGioco; }
 
     public void premiPulsante(double denaro, String oggetto) { //Metodo utilizzato per comunicare con la GUI
         this.puntataCorrente = new Puntata(denaro, oggetto, this);
