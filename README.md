@@ -13,3 +13,4 @@ La roulette (classe a se) estrarrà il numero ed il colore, con conseguente rica
 ![image](https://github.com/user-attachments/assets/65df5cda-35ac-4504-be5a-cefe3899ba62)
 ## CONCLUSIONI
 Buon 2025 🥳🍾🎈
+![image](https://github.com/user-attachments/assets/83a80d70-f832-44c9-b188-f33a69dbcdac)
