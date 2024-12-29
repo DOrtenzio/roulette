@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="root" prefHeight="568.0" prefWidth="728.0" style="-fx-background-color: #24292f;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.roulettedemo.FirstController">
     <children>
@@ -41,5 +42,10 @@
                 <Image url="@img/testo.png" />
             </image>
         </ImageView>
+      <Label layoutX="680.0" layoutY="4.0" prefHeight="18.0" prefWidth="44.0" text="Vers : 1.0" textFill="#e7e7ea">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
