@@ -45,7 +45,7 @@ public class HelloController {
         setCassa(giocatore.getCassaPersonale());
         labelIniziale.setVisible(false);
         rootDinamica.getChildren().clear();
-        Label labelBenvenuto=new Label("SEI PRONTO/A "+giocatore.getIdentificativo()+" ? ");
+        Label labelBenvenuto=new Label("PRONTO/A ?");
         labelBenvenuto.setStyle("-fx-font-family: 'Goudy Stout'; -fx-font-size: 11;");
         labelBenvenuto.setLayoutY(14);
         labelBenvenuto.setLayoutX(18);
@@ -54,7 +54,7 @@ public class HelloController {
 
         VBox tabellone=creaTabellone();
         Button b = new Button("Punta");
-        b.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        b.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: bfc2ca; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
         b.setPrefWidth(143.0);
         b.setPrefHeight(38.0);
         b.setLayoutX(290);
@@ -65,15 +65,31 @@ public class HelloController {
             b.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
         });
         b.setOnMouseExited(event -> {
-            b.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+            b.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: bfc2ca; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
         });
 
-        rootDinamica.getChildren().addAll(labelBenvenuto,tabellone,b);
+        Button b1 = new Button("Ritirati");
+        b1.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e1e2e6; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        b1.setPrefWidth(143.0);
+        b1.setPrefHeight(38.0);
+        b1.setLayoutX(137.0);
+        b1.setLayoutY(7);
+
+        //Metodo per cambio colore quando mouse sovrappone
+        b1.setOnMouseMoved(event -> {
+            b1.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+        b1.setOnMouseExited(event -> {
+            b1.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e1e2e6; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+
+        rootDinamica.getChildren().addAll(labelBenvenuto,tabellone,b,b1);
 
         creaFiches(giocatore);
 
         tabellone.setDisable(true);
         rootFish.setDisable(true);
+        b1.setDisable(true);
         b.setDisable(true);
 
         boxDenPuntata.setVisible(true);
@@ -88,11 +104,18 @@ public class HelloController {
         if (giocatore.getPuntataCorrente() == null){
             tabellone.setDisable(false);
             rootFish.setDisable(false);
+            b1.setDisable(false);
             b.setDisable(false);
         }
 
         b.setOnMouseClicked(e -> {
-            confermaAzionePuntata(giocatore,b,tabellone);
+            confermaAzionePuntata(giocatore,b1,tabellone);
+        });
+
+        b1.setOnMouseClicked(e -> {
+            inserimentoCorretto(giocatore);
+            giocatore.ritirati();
+            selectNoGiocatore();
         });
     }
 
@@ -180,6 +203,7 @@ public class HelloController {
                     giocatore.premiPulsante(giocatore.getCassaPersonale(), this.puntata);
                 else
                     giocatore.premiPulsante(Double.parseDouble(this.denaroPuntato), this.puntata);
+
                 inserimentoCorretto(giocatore); //Avviso visivo all'utente
                 rootDinamica.getChildren().clear();
                 rootFish.getChildren().clear();
@@ -240,6 +264,8 @@ public class HelloController {
 
     public void selectNoGiocatore(){ //Metodo per uscire in automatico della selezione del singolo
         selectGiocatore.setValue(null);
+        rootDinamica.getChildren().clear();
+        labelCredito.setText("Seleziona un giocatore");
 
         // Creiamo un oggetto ImageView
         ImageView immIniziale = new ImageView();
@@ -431,12 +457,14 @@ public class HelloController {
         controlRoot.setStyle("-fx-background-color:  #bc0000; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
         String s= labelCredito.getText();
         labelCredito.setText("Errore ");
+        selectGiocatore.setDisable(true);
         entrataAnchor(controlRoot);
         PauseTransition pausa = new PauseTransition(Duration.seconds(3));
         pausa.setOnFinished(e -> {
             controlRoot.setStyle("-fx-background-color: bfc2ca; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
             labelCredito.setText(s);
             entrataAnchor(controlRoot);
+            selectGiocatore.setDisable(false);
         });
         pausa.play();
     }
@@ -444,12 +472,14 @@ public class HelloController {
     private void inserimentoCorretto(Giocatore giocatore){
         controlRoot.setStyle("-fx-background-color:  #1e860e; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
         labelCredito.setText("Ottimo :)");
+        selectGiocatore.setDisable(true);
         entrataAnchor(controlRoot);
         PauseTransition pausa = new PauseTransition(Duration.seconds(3));
         pausa.setOnFinished(e -> {
             controlRoot.setStyle("-fx-background-color: bfc2ca; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
             labelCredito.setText("CREDITO ATTUALE: "+giocatore.getCassaPersonale()+" €");
             entrataAnchor(controlRoot);
+            selectGiocatore.setDisable(false);
         });
         pausa.play();
     }
@@ -603,10 +633,15 @@ public class HelloController {
 
     @FXML
     public void rotate() {
+        selectGiocatore.setDisable(true);
         // Animazione di rotazione applicata solo alla ruota
         RotateTransition rotateTransition = new RotateTransition(Duration.seconds(6), wheelContainer);
         rotateTransition.setByAngle(720 + (int) (Math.random() * 360));
         rotateTransition.setCycleCount(1);
+
+        rotateTransition.setOnFinished(e ->{
+            selectGiocatore.setDisable(false);
+        });
 
         rotateTransition.play();
     }
@@ -638,7 +673,7 @@ public class HelloController {
         messaggioConferma.setLayoutX(270);
         messaggioConferma.setLayoutY(209);
 
-
+        selectGiocatore.setDisable(true);
         // Aggiunta del quadrante e del messaggio al contenitore
         root.getChildren().addAll(quadrante, messaggioConferma);
 
@@ -646,6 +681,7 @@ public class HelloController {
         PauseTransition pausa = new PauseTransition(Duration.seconds(3));
         pausa.setOnFinished(e -> {
             root.getChildren().removeAll(quadrante, messaggioConferma);
+            selectGiocatore.setDisable(false);
         });
         pausa.play();
 

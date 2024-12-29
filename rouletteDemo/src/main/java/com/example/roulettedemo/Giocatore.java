@@ -31,6 +31,13 @@ public class Giocatore extends Thread {
         attesaPulsante.release();
     }
 
+    public void ritirati(){
+        rouletteAttuale.ritirati(this);
+        System.out.println(">> IL GIOCATORE "+this.identificativo+" SI E' RITIRATO");
+        prontiAlGioco.release();
+        Thread.currentThread().interrupt();
+    }
+
     @Override
     public String toString(){ return "Giocatore: Id = "+this.identificativo+" Quantitativo Cassa: "+this.cassaPersonale+" €,\t"; }
 
