@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -27,12 +28,50 @@ public class FirstController {
     private TextField t1,t2;
     @FXML
     private Label giocPresenti;
+    @FXML
+    private Button b1,b2,b3,b4,b5;
 
     private ArrayList<Giocatore> giocatori;
 
     //Costruttore
     public FirstController(){
         this.giocatori=new ArrayList<Giocatore>();
+    }
+
+    @FXML
+    public void initialize(){
+        b1.setOnMouseMoved(event -> {
+            b1.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+        b1.setOnMouseExited(event -> {
+            b1.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+        b2.setOnMouseMoved(event -> {
+            b2.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+        b2.setOnMouseExited(event -> {
+            b2.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+        b3.setOnMouseMoved(event -> {
+            b3.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+        b3.setOnMouseExited(event -> {
+            b3.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+
+        b4.setOnMouseMoved(event -> {
+            b4.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+        b4.setOnMouseExited(event -> {
+            b4.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #e1e2e6; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+        b5.setOnMouseMoved(event -> {
+            b5.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+        b5.setOnMouseExited(event -> {
+            b5.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: bfc2ca; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+
     }
 
     //Metodi

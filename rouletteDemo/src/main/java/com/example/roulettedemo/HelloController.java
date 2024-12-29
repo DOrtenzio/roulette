@@ -55,11 +55,18 @@ public class HelloController {
         b.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
         b.setPrefWidth(143.0);
         b.setPrefHeight(38.0);
-
-        rootDinamica.getChildren().addAll(labelBenvenuto,tabellone,b);
-
         b.setLayoutX(290);
         b.setLayoutY(7);
+
+        //Metodo per cambio colore quando mouse sovrappone
+        b.setOnMouseMoved(event -> {
+            b.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+        b.setOnMouseExited(event -> {
+            b.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+
+        rootDinamica.getChildren().addAll(labelBenvenuto,tabellone,b);
 
         fasePreScommessa(giocatore);
 
@@ -83,6 +90,89 @@ public class HelloController {
         }
 
         b.setOnMouseClicked(e -> {
+            createAnchorPane(giocatore,b,tabellone);
+        });
+    }
+
+    @FXML
+    public void createAnchorPane(Giocatore giocatore, Button b, VBox tabellone) {
+        tabellone.setDisable(true);
+        rootFish.setDisable(true);
+        b.setDisable(true);
+
+        // Creazione dell'AnchorPane
+        AnchorPane box5 = new AnchorPane();
+        box5.setId("box5");
+        box5.setDisable(true);
+        box5.setLayoutX(219.0);
+        box5.setLayoutY(214.0);
+        box5.setPrefHeight(142.0);
+        box5.setPrefWidth(283.0);
+        box5.setStyle("-fx-background-color: e7e7ea; " +
+                "-fx-background-radius: 12; " +
+                "-fx-border-color: #24292f; " +
+                "-fx-border-radius: 12; " +
+                "-fx-border-width: 2;");
+        box5.setVisible(false);
+
+        // Creazione del primo pulsante (No)
+        Button buttonNo = new Button("No");
+        buttonNo.setLayoutX(42.0);
+        buttonNo.setLayoutY(83.0);
+        buttonNo.setMnemonicParsing(false);
+        buttonNo.setPrefHeight(42.0);
+        buttonNo.setPrefWidth(99.0);
+        buttonNo.setStyle("-fx-border-color: #24292f; " +
+                "-fx-border-radius: 16; " +
+                "-fx-background-radius: 16; " +
+                "-fx-background-color: #e1e2e6; " +
+                "-fx-font-family: 'Goudy Stout'; " +
+                "-fx-font-size: 10;"
+        );
+        buttonNo.setWrapText(true);
+        buttonNo.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        buttonNo.setOnAction(event ->{
+            box5.setVisible(false);
+            box5.setDisable(true);
+
+            tabellone.setDisable(false);
+            rootFish.setDisable(false);
+            b.setDisable(false);
+        });
+        //Metodo per cambio colore quando mouse sovrappone
+        buttonNo.setOnMouseMoved(event -> {
+            buttonNo.setStyle("-fx-border-color: #24292f; " +
+                    "-fx-border-radius: 16; " +
+                    "-fx-background-radius: 16; " +
+                    "-fx-background-color: #FFECA1; " +
+                    "-fx-font-family: 'Goudy Stout'; " +
+                    "-fx-font-size: 10;");
+        });
+        buttonNo.setOnMouseExited(event -> {
+            buttonNo.setStyle("-fx-border-color: #24292f; " +
+                    "-fx-border-radius: 16; " +
+                    "-fx-background-radius: 16; " +
+                    "-fx-background-color: #e1e2e6; " +
+                    "-fx-font-family: 'Goudy Stout'; " +
+                    "-fx-font-size: 10;");
+        });
+
+        // Creazione del secondo pulsante (Si)
+        Button buttonSi = new Button("Si");
+        buttonSi.setLayoutX(154.0);
+        buttonSi.setLayoutY(82.0);
+        buttonSi.setMnemonicParsing(false);
+        buttonSi.setPrefHeight(42.0);
+        buttonSi.setPrefWidth(99.0);
+        buttonSi.setStyle("-fx-border-color: #24292f; " +
+                "-fx-border-radius: 16; " +
+                "-fx-background-radius: 16; " +
+                "-fx-background-color: bfc2ca; " +
+                "-fx-font-family: 'Goudy Stout'; " +
+                "-fx-font-size: 10;");
+        buttonSi.setWrapText(true);
+        buttonSi.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        buttonSi.setOnAction(event ->{
             try {
                 if (denaroPuntato.equalsIgnoreCase("all"))
                     giocatore.premiPulsante(giocatore.getCassaPersonale(), this.puntata);
@@ -92,14 +182,60 @@ public class HelloController {
                 rootDinamica.getChildren().clear();
                 rootFish.getChildren().clear();
 
+                box5.setDisable(true);
+                box5.setVisible(true);
                 boxDenPuntata.setVisible(false);
                 boxRisPuntata.setVisible(false);
             } catch (Exception error) {
                 System.out.println(error);
                 errore();
+
+                box5.setVisible(false);
+                box5.setDisable(true);
+
+                tabellone.setDisable(false);
+                rootFish.setDisable(false);
+                b.setDisable(false);
             }
         });
+        //Metodo per cambio colore quando mouse sovrappone
+        buttonSi.setOnMouseMoved(event -> {
+            buttonSi.setStyle("-fx-border-color: #24292f; " +
+                    "-fx-border-radius: 16; " +
+                    "-fx-background-radius: 16; " +
+                    "-fx-background-color: #FFECA1; " +
+                    "-fx-font-family: 'Goudy Stout'; " +
+                    "-fx-font-size: 10;");
+        });
+        buttonSi.setOnMouseExited(event -> {
+            buttonSi.setStyle("-fx-border-color: #24292f; " +
+                    "-fx-border-radius: 16; " +
+                    "-fx-background-radius: 16; " +
+                    "-fx-background-color: bfc2ca; " +
+                    "-fx-font-family: 'Goudy Stout'; " +
+                    "-fx-font-size: 10;");
+        });
+
+        // Creazione dell'etichetta
+        Label label = new Label("Sei sicuro?");
+        label.setAlignment(javafx.geometry.Pos.CENTER);
+        label.setLayoutX(29.0);
+        label.setLayoutY(14.0);
+        label.setPrefHeight(60.0);
+        label.setPrefWidth(231.0);
+        label.setStyle("-fx-font-family: 'Goudy Stout'; " +
+                "-fx-font-size: 18;");
+
+        // Aggiunta dei figli all'AnchorPane
+        box5.getChildren().addAll(buttonNo, buttonSi, label);
+
+        root.getChildren().add(box5);
+
+        box5.setDisable(false);
+        box5.setVisible(true);
+        entrataAnchor(box5);
     }
+
 
     public void setCassa(double cassa){
         labelCredito.setText("Credito attuale: "+cassa+" €");
@@ -107,7 +243,7 @@ public class HelloController {
     private void errore(){
         controlRoot.setStyle("-fx-background-color:  #bc0000; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
         String s= labelCredito.getText();
-        labelCredito.setText("Errore nell'inserimento");
+        labelCredito.setText("Errore ");
         entrataAnchor(controlRoot);
         PauseTransition pausa = new PauseTransition(Duration.seconds(3));
         pausa.setOnFinished(e -> {
@@ -203,6 +339,13 @@ public class HelloController {
             button.setPrefWidth(70.0);
             button.setStyle("-fx-background-radius: 35; -fx-background-color: #E4ECF6; -fx-border-color: " + borderColor + "; -fx-border-radius: 35; -fx-border-width: 10; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
             button.setOnAction(this::selezionaPuntataDenaro); //Assegno al bottone su cui si richiama il set il metodo
+            //Metodo per cambio colore quando mouse sovrappone
+            button.setOnMouseMoved(event -> {
+                button.setStyle("-fx-background-radius: 35; -fx-background-color: #FFECA1; -fx-border-color: " + borderColor + "; -fx-border-radius: 35; -fx-border-width: 10; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
+            });
+            button.setOnMouseExited(event -> {
+                button.setStyle("-fx-background-radius: 35; -fx-background-color: #E4ECF6; -fx-border-color: " + borderColor + "; -fx-border-radius: 35; -fx-border-width: 10; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
+            });
 
             fiches[inserite++]=button;
             rootFish.getChildren().add(button);
@@ -363,12 +506,26 @@ public class HelloController {
         Button b = new Button(text);
         b.setPrefSize(width, height);
         b.setStyle("-fx-background-color: " + color + "; -fx-background-radius: " + radius + "; -fx-text-fill: " + textColor + "; -fx-font-family: 'Bodoni MT'; -fx-font-size: 10;");
+        //Metodo per cambio colore quando mouse sovrappone
+        b.setOnMouseMoved(event -> {
+            b.setStyle("-fx-background-color: #FFECA1; -fx-background-radius: " + radius + "; -fx-text-fill: " + textColor + "; -fx-font-family: 'Bodoni MT'; -fx-font-size: 10;");
+        });
+        b.setOnMouseExited(event -> {
+            b.setStyle("-fx-background-color: " + color + "; -fx-background-radius: " + radius + "; -fx-text-fill: " + textColor + "; -fx-font-family: 'Bodoni MT'; -fx-font-size: 10;");
+        });
         return b;
     }
     private Button creaBottoneConBordo(String text, double width, double height, String color, double radius, String textColor) {
         Button b = new Button(text);
         b.setPrefSize(width, height);
         b.setStyle("-fx-background-color: " + color + "; -fx-background-radius: " + radius + "; -fx-text-fill: " + textColor + "; -fx-border-radius: 2; -fx-border-width: 1; -fx-border-color:  #24292f; -fx-font-family: 'Bodoni MT'; -fx-font-size: 10;");
+        //Metodo per cambio colore quando mouse sovrappone
+        b.setOnMouseMoved(event -> {
+            b.setStyle("-fx-background-color: #FFECA1; -fx-background-radius: " + radius + "; -fx-text-fill: " + textColor + "; -fx-border-radius: 2; -fx-border-width: 1; -fx-border-color:  #24292f; -fx-font-family: 'Bodoni MT'; -fx-font-size: 10;");
+        });
+        b.setOnMouseExited(event -> {
+            b.setStyle("-fx-background-color: " + color + "; -fx-background-radius: " + radius + "; -fx-text-fill: " + textColor + "; -fx-border-radius: 2; -fx-border-width: 1; -fx-border-color:  #24292f; -fx-font-family: 'Bodoni MT'; -fx-font-size: 10;");
+        });
         return b;
     }
     private boolean isRosso(int numero){
