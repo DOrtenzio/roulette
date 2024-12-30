@@ -8,7 +8,7 @@ La roulette (classe a se) estrarrà il numero ed il colore, con conseguente rica
 ![image](https://github.com/user-attachments/assets/5d25f295-547b-4d44-be8a-2e92f812a3f2)
 ![image](https://github.com/user-attachments/assets/46c968ba-4c2e-4b2c-aa02-6d7e6a017f75)
 ## STRUTTURA DELLE CLASSI
-> UML DA INSERIRE
+![Diagramma senza titolo drawio (1)](https://github.com/user-attachments/assets/86674a9b-89ce-40e7-9b91-5f05f2c4dd5b)
 
 ![image](https://github.com/user-attachments/assets/65df5cda-35ac-4504-be5a-cefe3899ba62)
 ## CONCLUSIONI
