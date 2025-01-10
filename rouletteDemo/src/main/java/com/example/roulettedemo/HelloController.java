@@ -1,8 +1,6 @@
 package com.example.roulettedemo;
 
-import javafx.animation.PauseTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -13,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
@@ -23,7 +22,7 @@ public class HelloController {
     @FXML
     private ChoiceBox<String> selectGiocatore;
     @FXML
-    private AnchorPane rootDinamica, root, rootFish, controlRoot,boxRisPuntata,boxDenPuntata;
+    private AnchorPane rootDinamica, root, rootFish, controlRoot,boxRisPuntata,boxDenPuntata,ball;
     @FXML
     private StackPane wheelContainer;
     @FXML
@@ -34,10 +33,12 @@ public class HelloController {
     private static final int[] ROSSI = {1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36};
     private ArrayList<Giocatore> giocatori;
     private String puntata,denaroPuntato;
+    private int posizionePallina;
 
     //Get e set
     public void setGiocatori(ArrayList<Giocatore> giocatori) {
         this.giocatori = giocatori;
+        this.posizionePallina=0;
     }
 
 
@@ -660,21 +661,53 @@ public class HelloController {
     }
 
     @FXML
-    public void rotate() {
+    public void rotate(int extractedNumber) {
         auto.setDisable(true);
         selectGiocatore.setDisable(true);
-        // Animazione di rotazione applicata solo alla ruota
-        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(6), wheelContainer);
-        rotateTransition.setByAngle(720 + (int) (Math.random() * 360));
-        rotateTransition.setCycleCount(1);
 
-        rotateTransition.setOnFinished(e ->{
-            selectGiocatore.setDisable(false);
-            auto.setDisable(false);
+        // Array che rappresenta i numeri sulla ruota da destra a sinistra
+        int[] wheel = {
+                0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1,
+                20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26
+        };
+
+        // Trova l'indice del numero estratto
+        int indiceNumero = -1;
+        for (int i = 0; i < wheel.length; i++) {
+            if (wheel[i] == extractedNumber) {
+                indiceNumero = i;
+                break;
+            }
+        }
+
+        // Calcolo dell'angolo necessario per fermare la ruota
+        double angoloNumeroEstratto = indiceNumero*(360.0 / wheel.length);
+        double angoloGiroPallina = -720 + ((-(this.posizionePallina * (360.0 / wheel.length))) - (360-angoloNumeroEstratto));// Due giri completi + l'offset
+
+        // Animazione: la ruota ruota con la pallina
+        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(6), wheelContainer); // Ruota
+        rotateTransition.setByAngle(720); // Ruota di 720 gradi (2 giri completi)
+        rotateTransition.setCycleCount(1);
+        rotateTransition.setInterpolator(Interpolator.EASE_OUT);
+
+        RotateTransition ballRotateTransition = new RotateTransition(Duration.seconds(6), ball); // Pallina
+        ballRotateTransition.setByAngle(angoloGiroPallina); // Ruota in senso opposto alla ruota
+
+        // Al termine della rotazione principale, pallina si ferma sul numero estratto
+        rotateTransition.setOnFinished(event -> {
+                selectGiocatore.setDisable(false);
+                auto.setDisable(false);
+                System.out.println("La ruota si è fermata sul numero: " + extractedNumber);
         });
 
         rotateTransition.play();
+        ballRotateTransition.play();
+
+        this.posizionePallina=indiceNumero;
     }
+
+
+
 
     @FXML
     public void sovrastaWheel(int estratto) {

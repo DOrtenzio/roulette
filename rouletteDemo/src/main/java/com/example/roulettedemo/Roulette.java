@@ -130,7 +130,7 @@ public class Roulette extends Thread {
 
     private void aggiornaNumeroEstratto(int numeroEstratto) {
         synchronized (helloController) {
-            Platform.runLater(() -> helloController.rotate());
+            Platform.runLater(() -> helloController.rotate(numeroEstratto));
             try {
                 TimeUnit.SECONDS.sleep(7);
             } catch (InterruptedException e) {

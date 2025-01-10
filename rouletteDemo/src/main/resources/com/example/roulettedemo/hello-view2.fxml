@@ -73,6 +73,14 @@
                   <Insets left="1.0" top="4.0" />
                </StackPane.margin>
             </ImageView>
+            <AnchorPane fx:id="ball" prefHeight="200.0" prefWidth="244.0">
+               <children>
+                  <ImageView fitHeight="26.0" fitWidth="23.0" layoutX="111.0" layoutY="73.0" nodeOrientation="INHERIT" preserveRatio="true">
+                     <image>
+                        <Image url="@img/ball.png" />
+                     </image>
+                  </ImageView>
+               </children></AnchorPane>
          </children>
       </StackPane>
       <AnchorPane fx:id="rootFish" layoutX="302.0" layoutY="475.0" prefHeight="93.0" prefWidth="398.0" style="-fx-background-color: e7e7ea; -fx-background-radius: 28 28 0 0; -fx-border-color: #24292f; -fx-border-radius: 28 28 0 0; -fx-border-width: 2;" />
