@@ -352,12 +352,12 @@ public class HelloController {
             }
 
             //BOTTONE LATERALE -->
-            Button bottone2to1 = creaBottoneConBordo("2 to 1", 56, 65, "#e7e7ea", 2, "BLACK");
-            bottone2to1.setFont(Font.font(11));
-            bottone2to1.setId("r"+riga);
-            bottone2to1.setOnAction(this::selezionaPuntata); //Assegno al bottone su cui si richiama il set il metodo
+            Button bottoneRow = creaBottoneConBordo("Row", 56, 65, "#e7e7ea", 2, "BLACK");
+            bottoneRow.setFont(Font.font(11));
+            bottoneRow.setId("r"+riga);
+            bottoneRow.setOnAction(this::selezionaPuntata); //Assegno al bottone su cui si richiama il set il metodo
 
-            hboxRiga.getChildren().add(bottone2to1);
+            hboxRiga.getChildren().add(bottoneRow);
 
             numDa1A36.getChildren().add(hboxRiga); //Riga completa
         }
@@ -409,8 +409,8 @@ public class HelloController {
         dispari.setId("d");
         dispari.setOnAction(this::selezionaPuntata); //Assegno al bottone su cui si richiama il set il metodo
         Button ultimi18 = creaBottoneConBordo("19 to 36", 58, 46, "#e7e7ea", 2, "BLACK");
-        primi18.setId("m2");
-        primi18.setOnAction(this::selezionaPuntata); //Assegno al bottone su cui si richiama il set il metodo
+        ultimi18.setId("m2");
+        ultimi18.setOnAction(this::selezionaPuntata); //Assegno al bottone su cui si richiama il set il metodo
 
         hbox3.getChildren().addAll(spazio2, primi18, pari, rossi, neri, dispari, ultimi18);
         tabellonePrincipale.getChildren().add(hbox3);
