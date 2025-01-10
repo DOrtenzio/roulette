@@ -1,4 +1,4 @@
-# ROULETTE EUROPEA
+# ROULETTE EUROPEA (NO INFLUENCES)
 ![image](https://github.com/user-attachments/assets/0f8e216f-f451-4d28-b6ec-67d554dff981)
 ## SCOPO
 Roulette europea con relativo croupier e cinque giocatori disponibili a scommettere sulle relative opzioni classiche. I 5 giocatori hanno ognuno il proprio tempo per scegliere e come nella realtà le scommesse potranno sovrapporsi nelle scelte.
