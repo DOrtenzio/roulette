@@ -59,6 +59,7 @@
                   <Image url="@img/testo.png" />
                </image>
             </ImageView>
+            <Button fx:id="auto" layoutX="473.0" layoutY="38.0" mnemonicParsing="false" onAction="#inserimentoAutomatico" prefHeight="42.0" prefWidth="79.0" style="-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: bfc2ca; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;" text="Auto" />
          </children>
       </AnchorPane>
       <StackPane fx:id="wheelContainer" layoutX="23.0" layoutY="171.0" prefHeight="316.0" prefWidth="244.0" visible="false">

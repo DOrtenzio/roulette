@@ -39,20 +39,19 @@ public class FirstController {
     @FXML
     public void initialize() {
         // Configurazione degli stili dei pulsanti per gli eventi di hover
-        configuraBottoneSopra(b1);
-        configuraBottoneSopra(b2);
-        configuraBottoneSopra(b3);
-        configuraBottoneSopra(b4);
-        configuraBottoneSopra(b5);
+        configuraBottoneSopra(b1,"e7e7ea");
+        configuraBottoneSopra(b2,"e7e7ea");
+        configuraBottoneSopra(b3,"e7e7ea");
+        configuraBottoneSopra(b4,"e7e7ea");
+        configuraBottoneSopra(b5,"bfc2ca");
     }
 
     /*
       Configura gli stili per i pulsanti al passaggio del mouse.
-      @param button Il pulsante da configurare.
      */
-    private void configuraBottoneSopra(Button button) {
+    private void configuraBottoneSopra(Button button,String coloreBackground) {
         button.setOnMouseMoved(event -> button.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: #FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;"));
-        button.setOnMouseExited(event -> button.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: e7e7ea; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;"));
+        button.setOnMouseExited(event -> button.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color:"+coloreBackground+"; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;"));
     }
 
 

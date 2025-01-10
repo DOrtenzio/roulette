@@ -28,6 +28,8 @@ public class HelloController {
     private StackPane wheelContainer;
     @FXML
     private Label labelCredito,labelIniziale,labelPuntato,labelSoldiPuntato;
+    @FXML
+    private Button auto;
 
     private static final int[] ROSSI = {1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36};
     private ArrayList<Giocatore> giocatori;
@@ -200,7 +202,7 @@ public class HelloController {
         buttonSi.setOnAction(event ->{
             try {
                 if (denaroPuntato.equalsIgnoreCase("all"))
-                    giocatore.premiPulsante(giocatore.getCassaPersonale(), this.puntata);
+                    giocatore.premiPulsante(giocatore.getCassaPersonale(), this.puntata); //Passo cosa ho puntato e quanto
                 else
                     giocatore.premiPulsante(Double.parseDouble(this.denaroPuntato), this.puntata);
 
@@ -286,6 +288,25 @@ public class HelloController {
         immIniziale.setTranslateY(1.0);
 
         rootDinamica.getChildren().add(immIniziale);
+    }
+
+    public void inserimentoAutomatico(){
+        auto.setDisable(true);
+        labelIniziale.setVisible(false);
+        rootDinamica.getChildren().clear();
+        Label labelBenvenuto=new Label("AZIONI AUTOMATICHE");
+        labelBenvenuto.setStyle("-fx-font-family: 'Goudy Stout'; -fx-font-size: 11;");
+        labelBenvenuto.setLayoutY(14);
+        labelBenvenuto.setLayoutX(18);
+        labelBenvenuto.setPrefWidth(244);
+        labelBenvenuto.setPrefHeight(30);
+        wheelContainer.setVisible(true);
+        selectNoGiocatore();
+        rootDinamica.getChildren().add(labelBenvenuto);
+        for (Giocatore giocatore: giocatori){
+            double denaroPuntatoCasuale=(giocatore.getCassaPersonale()/100)*((int) ((Math.random()*100)+1));
+            giocatore.premiPulsante(denaroPuntatoCasuale,String.valueOf((int) (Math.random()*36)));
+        }
     }
 
     /*METODI GESTIONE DEL TABELLONE RELATIVI AL TURNO*/
@@ -602,6 +623,12 @@ public class HelloController {
                 }
             }
         });
+        auto.setOnMouseMoved(e -> {
+            auto.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+        auto.setOnMouseExited(e -> {
+            auto.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: bfc2ca; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
 
     }
 
@@ -634,6 +661,7 @@ public class HelloController {
 
     @FXML
     public void rotate() {
+        auto.setDisable(true);
         selectGiocatore.setDisable(true);
         // Animazione di rotazione applicata solo alla ruota
         RotateTransition rotateTransition = new RotateTransition(Duration.seconds(6), wheelContainer);
@@ -642,6 +670,7 @@ public class HelloController {
 
         rotateTransition.setOnFinished(e ->{
             selectGiocatore.setDisable(false);
+            auto.setDisable(false);
         });
 
         rotateTransition.play();
