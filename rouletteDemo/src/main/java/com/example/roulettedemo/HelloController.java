@@ -305,8 +305,10 @@ public class HelloController {
         selectNoGiocatore();
         rootDinamica.getChildren().add(labelBenvenuto);
         for (Giocatore giocatore: giocatori){
-            double denaroPuntatoCasuale=(giocatore.getCassaPersonale()/100)*((int) ((Math.random()*100)+1));
-            giocatore.premiPulsante(denaroPuntatoCasuale,String.valueOf((int) (Math.random()*36)));
+            if(giocatore.getPuntataCorrente()==null) {
+                double denaroPuntatoCasuale = (giocatore.getCassaPersonale() / 100) * ((int) ((Math.random() * 100) + 1));
+                giocatore.premiPulsante(denaroPuntatoCasuale, String.valueOf((int) (Math.random() * 36)));
+            }
         }
     }
 
