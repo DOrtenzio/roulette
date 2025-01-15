@@ -275,7 +275,7 @@ public class HelloController {
         ImageView immIniziale = new ImageView();
 
         // Impostiamo l'immagine da caricare
-        Image image = new Image(getClass().getResourceAsStream("/com/example/roulettedemo/img/omF.png"));
+        Image image = new Image(getClass().getResourceAsStream("/com/example/roulettedemo/img/omP.png"));
         immIniziale.setImage(image);
 
         // Impostiamo le proprietà
