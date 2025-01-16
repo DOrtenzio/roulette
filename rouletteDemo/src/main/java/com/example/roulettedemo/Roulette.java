@@ -123,7 +123,7 @@ public class Roulette extends Thread {
     Platform.runLater(); --> È un metodo di JavaFX che permette di eseguire un'operazione sul thread principale dell'interfaccia grafica (UI thread).
                              È necessario perché solo questo thread può aggiornare o interagire con l'interfaccia utente.
 
-    () -> { ... }; --> È una lambda expression, una sintassi breve per definire un'implementazione di un'interfaccia funzionale (qui un oggetto Runnable).
+    () -> { ... }; --> È una lambda expression, una sintassi breve per definire un'implementazione di un'interfaccia funzionale.
                        Sostituibile con helloController::fasePreScomessa
 
     */

@@ -608,6 +608,9 @@ public class HelloController {
          Un listener è un componente che osserva i cambiamenti di uno specifico oggetto o proprietà.
          Quando si verifica un cambiamento, il listener esegue un'azione definita nel suo corpo.*/
         selectGiocatore.getItems().addListener((javafx.collections.ListChangeListener.Change<? extends String> change) -> {
+            //ListChangeListener.Change<? extends String> è un tipo generico che indica che il listener
+            // reagirà ai cambiamenti in una lista contenente oggetti di tipo String (o un suo sottotipo).
+
             // Cicla attraverso i cambiamenti nella lista
             while (change.next()) {
                 // Controlla se la lista non è vuota
@@ -615,7 +618,7 @@ public class HelloController {
                     // Quando gli elementi nella ChoiceBox sono disponibili,
                     // aggiunge un listener per monitorare la selezione dell'utente
                     selectGiocatore.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-                        // Se il nuovo elemento selezionato non è nullo
+                        // Se il nuovo elemento selezionato non è nullo anche se non può esserlo
                         if (newValue != null) {
                             // Ottiene l'indice dell'elemento selezionato nella ChoiceBox
                             int selectedIndex = selectGiocatore.getSelectionModel().getSelectedIndex();
