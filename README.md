@@ -5,6 +5,9 @@
 Roulette europea con n giocatori disponibili a scommettere sulle relative opzioni classiche. I giocatori hanno tempo per scegliere e come nella realtà le scommesse potranno sovrapporsi nelle scelte.
 La roulette (classe a se) estrarrà il numero ed il colore, con conseguente ricavo da scommesse perse e ripago delle scommesse vincenti.
 
+![azioni](https://github.com/user-attachments/assets/b23efb9a-1be8-406f-aedf-2f6940bebe9b)
+
+
 ![image](https://github.com/user-attachments/assets/92516113-eb9c-49fe-9742-059724a94c8f)
 
 ## STRUTTURA DELLE CLASSI
