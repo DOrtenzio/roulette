@@ -148,7 +148,6 @@ public class Roulette extends Thread {
     private void finePartita(){ Platform.runLater(() -> helloController.finePartita()); }
 
     /*METODI DI SINCRONIZZAZIONE*/
-
     private void attendiGiocatori(){
         for (int i = 0; i < this.numGioc; i++) {
             try {

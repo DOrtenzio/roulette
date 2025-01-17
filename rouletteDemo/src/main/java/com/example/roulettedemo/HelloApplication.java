@@ -23,7 +23,7 @@ public class HelloApplication extends Application {
         stage.getIcons().add(new Image(HelloApplication.class.getResource("/com/example/roulettedemo/img/logo.png").toString()));
         stage.show();
 
-        firstController.entrataIniziale(); // Apprezzamento grafico
+        firstController.entrataIniziale(); // Inserimento grafico
     }
 
     public static void main(String[] args) {

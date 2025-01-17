@@ -35,12 +35,11 @@ public class HelloController {
     private String puntata,denaroPuntato;
     private int posizionePallina;
 
-    //Get e set
+    /*GET E SET*/
     public void setGiocatori(ArrayList<Giocatore> giocatori) {
         this.giocatori = giocatori;
         this.posizionePallina=0;
     }
-
 
     /*METODI PER LA GESTIONE DEL TURNO*/
     @FXML
@@ -264,7 +263,6 @@ public class HelloController {
         box5.setVisible(true);
         entrataAnchor(box5);
     }
-
     public void selectNoGiocatore(){ //Metodo per uscire in automatico della selezione del singolo
         selectGiocatore.setValue(null);
         rootDinamica.getChildren().clear();
@@ -290,7 +288,6 @@ public class HelloController {
 
         rootDinamica.getChildren().add(immIniziale);
     }
-
     public void inserimentoAutomatico(){
         auto.setDisable(true);
         labelIniziale.setVisible(false);
@@ -313,6 +310,7 @@ public class HelloController {
     }
 
     /*METODI GESTIONE DEL TABELLONE RELATIVI AL TURNO*/
+    @FXML
     public VBox creaTabellone(){
         VBox tabellonePrincipale = new VBox(); // layoutX="24.0" layoutY="54.0" prefHeight="297.0" prefWidth="411.0"
         tabellonePrincipale.setLayoutX(24);
@@ -470,19 +468,63 @@ public class HelloController {
         System.out.println("Hai puntato su: " + denaroPuntato);
         labelSoldiPuntato.setText("con : "+denaroPuntato);
     }
-
+    @FXML
     public void setCassa(double cassa){
         labelCredito.setText("Credito attuale: "+cassa+" €");
     }
 
+    /* METODI INIZIO PARTITA */
+    @FXML
+    public void initialize() {
+        /* Aggiunge un listener alla lista degli elementi della ChoiceBox
+         Un listener è un componente che osserva i cambiamenti di uno specifico oggetto o proprietà.
+         Quando si verifica un cambiamento, il listener esegue un'azione definita nel suo corpo.*/
+        selectGiocatore.getItems().addListener((javafx.collections.ListChangeListener.Change<? extends String> change) -> {
+            //ListChangeListener.Change<? extends String> è un tipo generico che indica che il listener
+            // reagirà ai cambiamenti in una lista contenente oggetti di tipo String (o un suo sottotipo).
+
+            // Cicla attraverso i cambiamenti nella lista
+            while (change.next()) {
+                // Controlla se la lista non è vuota
+                if (!selectGiocatore.getItems().isEmpty()) {
+                    // Quando gli elementi nella ChoiceBox sono disponibili,
+                    // aggiunge un listener per monitorare la selezione dell'utente
+                    selectGiocatore.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
+                        // Se il nuovo elemento selezionato non è nullo anche se non può esserlo
+                        if (newValue != null) {
+                            // Ottiene l'indice dell'elemento selezionato nella ChoiceBox
+                            int selectedIndex = selectGiocatore.getSelectionModel().getSelectedIndex();
+                            // Carica le informazioni relative al giocatore selezionato
+                            caricaFunzioniDelGiocatore(giocatori.get(selectedIndex));
+                        }
+                    });
+                }
+            }
+        });
+        auto.setOnMouseMoved(e -> {
+            auto.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+        auto.setOnMouseExited(e -> {
+            auto.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: bfc2ca; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
+        });
+
+    }
+    @FXML
+    public void inserimentoGiocatoriChoiceBox() {
+        System.out.println(">  Inseriti identificativi nel menù di scelta.");
+        selectGiocatore.getItems().clear();
+        for (int i = 0; i < giocatori.size(); i++) {
+            selectGiocatore.getItems().add(giocatori.get(i).getIdentificativo());
+        }
+    }
 
     /*METODI AVVISI GRAFICI X L'UTENTE*/
-
     private void errore(){
         controlRoot.setStyle("-fx-background-color:  #bc0000; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
         String s= labelCredito.getText();
         labelCredito.setText("Errore ");
         selectGiocatore.setDisable(true);
+        auto.setDisable(true);
         entrataAnchor(controlRoot);
         PauseTransition pausa = new PauseTransition(Duration.seconds(3));
         pausa.setOnFinished(e -> {
@@ -490,6 +532,7 @@ public class HelloController {
             labelCredito.setText(s);
             entrataAnchor(controlRoot);
             selectGiocatore.setDisable(false);
+            auto.setDisable(false);
         });
         pausa.play();
     }
@@ -498,17 +541,58 @@ public class HelloController {
         controlRoot.setStyle("-fx-background-color:  #1e860e; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
         labelCredito.setText("Ottimo :)");
         selectGiocatore.setDisable(true);
+        auto.setDisable(true);
         entrataAnchor(controlRoot);
-        PauseTransition pausa = new PauseTransition(Duration.seconds(3));
+        PauseTransition pausa = new PauseTransition(Duration.seconds(1.2));
         pausa.setOnFinished(e -> {
             controlRoot.setStyle("-fx-background-color: bfc2ca; -fx-background-radius: 0 12 12 0; -fx-border-color: #24292f; -fx-border-radius: 0 12 12 0; -fx-border-width: 2 2 2 0; -fx-font-family: 'Goudy Stout'; -fx-font-size: 9;");
             labelCredito.setText("CREDITO ATTUALE: "+giocatore.getCassaPersonale()+" €");
             entrataAnchor(controlRoot);
             selectGiocatore.setDisable(false);
+            auto.setDisable(false);
         });
         pausa.play();
     }
+    @FXML
+    public void sovrastaWheel(int estratto) {
+        String colore;
+        if (isRosso(estratto))
+            colore="#bc0000";
+        else if (estratto==0)
+            colore="#00FF00";
+        else
+            colore="#24292f";
 
+        // Creazione del quadrante
+        Rectangle quadrante = new Rectangle(170, 170);
+        quadrante.setArcWidth(16);
+        quadrante.setArcHeight(16);
+        quadrante.setFill(Color.web(colore, 0.9)); // Colore di sfondo verde trasparente
+        quadrante.setLayoutX(270); // Posizione centrata rispetto alla ruota
+        quadrante.setLayoutY(209);
+
+        // Creazione del messaggio
+        Label messaggioConferma = new Label("Estratto: " + estratto);
+        messaggioConferma.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Goudy Stout'; -fx-font-size: 8;");
+        messaggioConferma.setAlignment(Pos.CENTER);
+        messaggioConferma.setPrefWidth(170); // Larghezza uguale al quadrante
+        messaggioConferma.setPrefHeight(170); // Altezza uguale al quadrante
+        messaggioConferma.setLayoutX(270);
+        messaggioConferma.setLayoutY(209);
+
+        selectGiocatore.setDisable(true);
+        // Aggiunta del quadrante e del messaggio al contenitore
+        root.getChildren().addAll(quadrante, messaggioConferma);
+
+        // Timer per rimuovere gli elementi dopo 5 secondi
+        PauseTransition pausa = new PauseTransition(Duration.seconds(3));
+        pausa.setOnFinished(e -> {
+            root.getChildren().removeAll(quadrante, messaggioConferma);
+            selectGiocatore.setDisable(false);
+        });
+        pausa.play();
+
+    }
     @FXML
     public void finePartita() {
         // Creazione del quadrante
@@ -556,7 +640,6 @@ public class HelloController {
             fish4.setText(String.valueOf((int)(giocatore.getCassaPersonale())));
         }
     }
-
     @FXML
     private void creaFiches(Giocatore giocatore) {
         //CREAZIONE FICHES
@@ -598,56 +681,6 @@ public class HelloController {
         valoreFiches(giocatore,fiches[0],fiches[1],fiches[2],fiches[3]);
     }
 
-
-
-    /* METODI INIZIO PARTITA */
-
-    @FXML
-    public void initialize() {
-        /* Aggiunge un listener alla lista degli elementi della ChoiceBox
-         Un listener è un componente che osserva i cambiamenti di uno specifico oggetto o proprietà.
-         Quando si verifica un cambiamento, il listener esegue un'azione definita nel suo corpo.*/
-        selectGiocatore.getItems().addListener((javafx.collections.ListChangeListener.Change<? extends String> change) -> {
-            //ListChangeListener.Change<? extends String> è un tipo generico che indica che il listener
-            // reagirà ai cambiamenti in una lista contenente oggetti di tipo String (o un suo sottotipo).
-
-            // Cicla attraverso i cambiamenti nella lista
-            while (change.next()) {
-                // Controlla se la lista non è vuota
-                if (!selectGiocatore.getItems().isEmpty()) {
-                    // Quando gli elementi nella ChoiceBox sono disponibili,
-                    // aggiunge un listener per monitorare la selezione dell'utente
-                    selectGiocatore.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-                        // Se il nuovo elemento selezionato non è nullo anche se non può esserlo
-                        if (newValue != null) {
-                            // Ottiene l'indice dell'elemento selezionato nella ChoiceBox
-                            int selectedIndex = selectGiocatore.getSelectionModel().getSelectedIndex();
-                            // Carica le informazioni relative al giocatore selezionato
-                            caricaFunzioniDelGiocatore(giocatori.get(selectedIndex));
-                        }
-                    });
-                }
-            }
-        });
-        auto.setOnMouseMoved(e -> {
-            auto.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: FFECA1; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
-        });
-        auto.setOnMouseExited(e -> {
-            auto.setStyle("-fx-border-color: #24292f; -fx-border-radius: 16; -fx-background-radius: 16; -fx-background-color: bfc2ca; -fx-font-family: 'Goudy Stout'; -fx-font-size: 10;");
-        });
-
-    }
-
-    @FXML
-    public void inserimentoGiocatoriChoiceBox() {
-        System.out.println(">  Inseriti identificativi nel menù di scelta.");
-        selectGiocatore.getItems().clear();
-        for (int i = 0; i < giocatori.size(); i++) {
-            selectGiocatore.getItems().add(giocatori.get(i).getIdentificativo());
-        }
-    }
-
-
     //TRANSIZIONI
     @FXML
     private void entrataAnchor(AnchorPane anchorPane){
@@ -664,7 +697,6 @@ public class HelloController {
         // Avvia l'animazione
         translateTransition.play();
     }
-
     @FXML
     public void rotate(int extractedNumber) {
         auto.setDisable(true);
@@ -710,49 +742,4 @@ public class HelloController {
 
         this.posizionePallina=indiceNumero;
     }
-
-
-
-
-    @FXML
-    public void sovrastaWheel(int estratto) {
-        String colore;
-        if (isRosso(estratto))
-            colore="#bc0000";
-        else if (estratto==0)
-            colore="#00FF00";
-        else
-            colore="#24292f";
-
-        // Creazione del quadrante
-        Rectangle quadrante = new Rectangle(170, 170);
-        quadrante.setArcWidth(16);
-        quadrante.setArcHeight(16);
-        quadrante.setFill(Color.web(colore, 0.9)); // Colore di sfondo verde trasparente
-        quadrante.setLayoutX(270); // Posizione centrata rispetto alla ruota
-        quadrante.setLayoutY(209);
-
-        // Creazione del messaggio
-        Label messaggioConferma = new Label("Estratto: " + estratto);
-        messaggioConferma.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Goudy Stout'; -fx-font-size: 8;");
-        messaggioConferma.setAlignment(Pos.CENTER);
-        messaggioConferma.setPrefWidth(170); // Larghezza uguale al quadrante
-        messaggioConferma.setPrefHeight(170); // Altezza uguale al quadrante
-        messaggioConferma.setLayoutX(270);
-        messaggioConferma.setLayoutY(209);
-
-        selectGiocatore.setDisable(true);
-        // Aggiunta del quadrante e del messaggio al contenitore
-        root.getChildren().addAll(quadrante, messaggioConferma);
-
-        // Timer per rimuovere gli elementi dopo 5 secondi
-        PauseTransition pausa = new PauseTransition(Duration.seconds(3));
-        pausa.setOnFinished(e -> {
-            root.getChildren().removeAll(quadrante, messaggioConferma);
-            selectGiocatore.setDisable(false);
-        });
-        pausa.play();
-
-    }
-
 }
