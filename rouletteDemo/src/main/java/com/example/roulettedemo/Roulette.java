@@ -52,10 +52,10 @@ public class Roulette extends Thread {
     }
 
     private String getQuadrante(int numero) {
-        if (numero == 0) return "q0";
-        if (numero <= 12) return "q1";
-        if (numero <= 24) return "q2";
-        return "q3";
+        if (numero <= 12) return "q0";
+        else if (numero <= 24) return "q1";
+        else if (numero <= 36) return "q2";
+        else return "q3";
     }
 
     private String getMeta(int numero) {
